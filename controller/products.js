@@ -4,40 +4,38 @@ import path from "path";
 
 class Product {
   //  Delete Image from uploads -> products folder
-  // static deleteImages(images, mode) {
-  //   var basePath =
-  //     path.resolve(__dirname + "../../") + "/public/uploads/products/";
-  //   console.log(basePath);
+  static deleteImages(images, mode) {
+    var basePath =
+      path.resolve(__dirname + "../../") + "/public/uploads/products/";
+    console.log(basePath);
 
-  //   const basePath = path.resolve(__dirname, "../../public/uploads/products");
-  //   console.log(basePath);
-  //   for (var i = 0; i < images.length; i++) {
-  //     let filePath = "";
-  //     if (mode == "file") {
-  //       filePath = basePath + `${images[i].filename}`;
-  //     } else {
-  //       filePath = basePath + `${images[i]}`;
-  //     }
-  //     console.log(filePath);
-  //     if (fs.existsSync(filePath)) {
-  //       console.log("Exists image");
-  //     }
-  //     fs.unlink(filePath, (err) => {
-  //       if (err) {
-  //         return err;
-  //       }
-  //     });
-  //   }
-  // }
+    for (var i = 0; i < images.length; i++) {
+      let filePath = "";
+      if (mode == "file") {
+        filePath = basePath + `${images[i].filename}`;
+      } else {
+        filePath = basePath + `${images[i]}`;
+      }
+      console.log(filePath);
+      if (fs.existsSync(filePath)) {
+        console.log("Exists image");
+      }
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          return err;
+        }
+      });
+    }
+  }
 
   async getAllProduct(req, res) {
     try {
       let Products = await productModel
         .find({})
         .populate("pCategory", "_id cName")
-        .sort({_id: -1});
+        .sort({ _id: -1 });
       if (Products) {
-        return res.json({Products});
+        return res.json({ Products });
       }
     } catch (err) {
       console.log(err);
@@ -45,7 +43,7 @@ class Product {
   }
 
   async postAddProduct(req, res) {
-    let {pName, pDescription, pPrice, pQuantity, pCategory, pOffer, pStatus} =
+    let { pName, pDescription, pPrice, pQuantity, pCategory, pOffer, pStatus } =
       req.body;
     let images = req.files;
     // Validation
@@ -59,7 +57,7 @@ class Product {
       !pStatus
     ) {
       Product.deleteImages(images, "file");
-      return res.json({error: "All filled must be required"});
+      return res.json({ error: "All filled must be required" });
     }
     // Validate Name and description
     else if (pName.length > 255 || pDescription.length > 3000) {
@@ -71,7 +69,7 @@ class Product {
     // Validate Images
     else if (images.length !== 4) {
       //  Product.deleteImages(images, "file");
-      return res.json({error: "Must need to provide 4 images"});
+      return res.json({ error: "Must need to provide 4 images" });
     } else {
       try {
         let allImages = [];
@@ -90,7 +88,7 @@ class Product {
         });
         let save = await newProduct.save();
         if (save) {
-          return res.json({success: "Product created successfully"});
+          return res.json({ success: "Product created successfully" });
         }
       } catch (err) {
         console.log(err);
@@ -123,7 +121,7 @@ class Product {
       !pOffer |
       !pStatus
     ) {
-      return res.json({error: "All filled must be required"});
+      return res.json({ error: "All filled must be required" });
     }
     // Validate Name and description
     else if (pName.length > 255 || pDescription.length > 3000) {
@@ -134,7 +132,7 @@ class Product {
     // Validate Update Images
     else if (editImages && editImages.length == 1) {
       Product.deleteImages(editImages, "file");
-      return res.json({error: "Must need to provide 2 images"});
+      return res.json({ error: "Must need to provide 2 images" });
     } else {
       let editData = {
         pName,
@@ -150,14 +148,14 @@ class Product {
         for (const img of editImages) {
           allEditImages.push(img.filename);
         }
-        editData = {...editData, pImages: allEditImages};
+        editData = { ...editData, pImages: allEditImages };
         Product.deleteImages(pImages.split(","), "string");
       }
       try {
         let editProduct = productModel.findByIdAndUpdate(pId, editData);
         editProduct.exec((err) => {
           if (err) console.log(err);
-          return res.json({success: "Product edit successfully"});
+          return res.json({ success: "Product edit successfully" });
         });
       } catch (err) {
         console.log(err);
@@ -166,9 +164,9 @@ class Product {
   }
 
   async getDeleteProduct(req, res) {
-    let {pId} = req.body;
+    let { pId } = req.body;
     if (!pId) {
-      return res.json({error: "All filled must be required"});
+      return res.json({ error: "All filled must be required" });
     } else {
       try {
         let deleteProductObj = await productModel.findById(pId);
@@ -176,7 +174,7 @@ class Product {
         if (deleteProduct) {
           // Delete Image from uploads -> products folder
           Product.deleteImages(deleteProductObj.pImages, "string");
-          return res.json({success: "Product deleted successfully"});
+          return res.json({ success: "Product deleted successfully" });
         }
       } catch (err) {
         console.log(err);
@@ -185,9 +183,9 @@ class Product {
   }
 
   async getSingleProduct(req, res) {
-    let {pId} = req.body;
+    let { pId } = req.body;
     if (!pId) {
-      return res.json({error: "All filled must be required"});
+      return res.json({ error: "All filled must be required" });
     } else {
       try {
         let singleProduct = await productModel
@@ -195,7 +193,7 @@ class Product {
           .populate("pCategory", "cName")
           .populate("pRatingsReviews.user", "name email userImage");
         if (singleProduct) {
-          return res.json({Product: singleProduct});
+          return res.json({ Product: singleProduct });
         }
       } catch (err) {
         console.log(err);
@@ -204,88 +202,88 @@ class Product {
   }
 
   async getProductByCategory(req, res) {
-    let {catId} = req.body;
+    let { catId } = req.body;
     if (!catId) {
-      return res.json({error: "All filled must be required"});
+      return res.json({ error: "All filled must be required" });
     } else {
       try {
         let products = await productModel
-          .find({pCategory: catId})
+          .find({ pCategory: catId })
           .populate("pCategory", "cName");
         if (products) {
-          return res.json({Products: products});
+          return res.json({ Products: products });
         }
       } catch (err) {
-        return res.json({error: "Search product wrong"});
+        return res.json({ error: "Search product wrong" });
       }
     }
   }
 
   async getProductByPrice(req, res) {
-    let {price} = req.body;
+    let { price } = req.body;
     if (!price) {
-      return res.json({error: "All filled must be required"});
+      return res.json({ error: "All filled must be required" });
     } else {
       try {
         let products = await productModel
-          .find({pPrice: {$lt: price}})
+          .find({ pPrice: { $lt: price } })
           .populate("pCategory", "cName")
-          .sort({pPrice: -1});
+          .sort({ pPrice: -1 });
         if (products) {
-          return res.json({Products: products});
+          return res.json({ Products: products });
         }
       } catch (err) {
-        return res.json({error: "Filter product wrong"});
+        return res.json({ error: "Filter product wrong" });
       }
     }
   }
 
   async getWishProduct(req, res) {
-    let {productArray} = req.body;
+    let { productArray } = req.body;
     if (!productArray) {
-      return res.json({error: "All filled must be required"});
+      return res.json({ error: "All filled must be required" });
     } else {
       try {
         let wishProducts = await productModel.find({
-          _id: {$in: productArray},
+          _id: { $in: productArray },
         });
         if (wishProducts) {
-          return res.json({Products: wishProducts});
+          return res.json({ Products: wishProducts });
         }
       } catch (err) {
-        return res.json({error: "Filter product wrong"});
+        return res.json({ error: "Filter product wrong" });
       }
     }
   }
 
   async getCartProduct(req, res) {
-    let {productArray} = req.body;
+    let { productArray } = req.body;
     if (!productArray) {
-      return res.json({error: "All filled must be required"});
+      return res.json({ error: "All filled must be required" });
     } else {
       try {
         let cartProducts = await productModel.find({
-          _id: {$in: productArray},
+          _id: { $in: productArray },
         });
         if (cartProducts) {
-          return res.json({Products: cartProducts});
+          return res.json({ Products: cartProducts });
         }
       } catch (err) {
-        return res.json({error: "Cart product wrong"});
+        return res.json({ error: "Cart product wrong" });
       }
     }
   }
 
   async postAddReview(req, res) {
-    let {pId, uId, rating, review} = req.body;
+    let { pId, uId, rating, review } = req.body;
     if (!pId || !rating || !review || !uId) {
-      return res.json({error: "All filled must be required"});
+      return res.json({ error: "All filled must be required" });
     } else {
-      let checkReviewRatingExists = await productModel.findOne({_id: pId});
+      let checkReviewRatingExists = await productModel.findOne({ _id: pId });
       if (checkReviewRatingExists.pRatingsReviews.length > 0) {
         checkReviewRatingExists.pRatingsReviews.map((item) => {
           if (item.user === uId) {
-            return res.json({error: "Your already reviewd the product"});
+            return res.json({ error: "Your already reviewd the product" });
           } else {
             try {
               let newRatingReview = productModel.findByIdAndUpdate(pId, {
@@ -301,10 +299,10 @@ class Product {
                 if (err) {
                   console.log(err);
                 }
-                return res.json({success: "Thanks for your review"});
+                return res.json({ success: "Thanks for your review" });
               });
             } catch (err) {
-              return res.json({error: "Cart product wrong"});
+              return res.json({ error: "Cart product wrong" });
             }
           }
         });
@@ -312,40 +310,64 @@ class Product {
         try {
           let newRatingReview = productModel.findByIdAndUpdate(pId, {
             $push: {
-              pRatingsReviews: {review: review, user: uId, rating: rating},
+              pRatingsReviews: { review: review, user: uId, rating: rating },
             },
           });
           newRatingReview.exec((err, result) => {
             if (err) {
               console.log(err);
             }
-            return res.json({success: "Thanks for your review"});
+            return res.json({ success: "Thanks for your review" });
           });
         } catch (err) {
-          return res.json({error: "Cart product wrong"});
+          return res.json({ error: "Cart product wrong" });
         }
       }
     }
   }
 
   async deleteReview(req, res) {
-    let {rId, pId} = req.body;
+    let { rId, pId } = req.body;
     if (!rId) {
-      return res.json({message: "All filled must be required"});
+      return res.json({ message: "All filled must be required" });
     } else {
       try {
         let reviewDelete = productModel.findByIdAndUpdate(pId, {
-          $pull: {pRatingsReviews: {_id: rId}},
+          $pull: { pRatingsReviews: { _id: rId } },
         });
         reviewDelete.exec((err, result) => {
           if (err) {
             console.log(err);
           }
-          return res.json({success: "Your review is deleted"});
+          return res.json({ success: "Your review is deleted" });
         });
       } catch (err) {
         console.log(err);
       }
+    }
+  }
+
+  async getRelatedProductsByCategory(req, res) {
+    const { pId } = req.body;
+    if (!pId) {
+      return res.json({ error: "Product ID must be provided" });
+    }
+
+    try {
+      const product = await productModel.findById(pId);
+
+      if (!product) {
+        return res.json({ error: "Product not found" });
+      }
+
+      const relatedProducts = await productModel
+        .find({ pCategory: product.pCategory, _id: { $ne: product._id } })
+        .populate("pCategory", "cName");
+
+      return res.json({ RelatedProducts: relatedProducts });
+    } catch (err) {
+      console.log(err);
+      return res.json({ error: "Error fetching related products" });
     }
   }
 }

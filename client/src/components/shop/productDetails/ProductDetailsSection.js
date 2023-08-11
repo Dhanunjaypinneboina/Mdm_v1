@@ -11,7 +11,7 @@ import {cartListProduct} from "../partials/FetchApi";
 import {isWishReq, unWishReq, isWish} from "../home/Mixins";
 import {updateQuantity, slideImage, addToCart, cartList} from "./Mixins";
 import {totalCost} from "../partials/Mixins";
-import {toast} from "react-hot-toast";
+
 
 const apiURL = process.env.REACT_APP_API_URL;
 

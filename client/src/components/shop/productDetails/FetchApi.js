@@ -29,3 +29,19 @@ export const postDeleteReview = async (formData) => {
     console.log(error);
   }
 };
+
+export const relatedProductsByCategory = async (pId) => {
+  console.log(pId);
+  try {
+    let res = await axios.post(
+      `${apiURL}/api/product/related-products-by-category`,
+      {
+        pId: pId,
+      }
+    );
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

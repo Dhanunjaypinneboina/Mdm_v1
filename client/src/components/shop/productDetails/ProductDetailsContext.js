@@ -20,6 +20,11 @@ export const productDetailsReducer = (state, action) => {
         ...state,
         cartState: action.payload,
       };
+    case "relatedProducts":
+      return {
+        ...state,
+        relatedProducts: action.payload,
+      };
     default:
       return state;
   }

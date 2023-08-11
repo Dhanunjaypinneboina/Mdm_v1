@@ -99,6 +99,18 @@ export const productByCategory = async (catId) => {
   }
 };
 
+export const relatedProductsByCategory = async (catId) => {
+  try {
+    let res = await axios.post(`${apiURL}/api/product/related-products-by-category`, {
+      catId,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 export const productByPrice = async (price) => {
   try {
     let res = await axios.post(`${apiURL}/api/product/product-by-price`, {
@@ -109,3 +121,4 @@ export const productByPrice = async (price) => {
     console.log(error);
   }
 };
+

@@ -12,9 +12,13 @@ var storage = multer.diskStorage({
   },
 });
 
-const upload = multer({storage: storage});
+const upload = multer({ storage: storage });
 
 router.get("/all-product", productController.getAllProduct);
+router.post(
+  "/related-products-by-category",
+  productController.getRelatedProductsByCategory
+);
 router.post("/product-by-category", productController.getProductByCategory);
 router.post("/product-by-price", productController.getProductByPrice);
 router.post("/wish-product", productController.getWishProduct);

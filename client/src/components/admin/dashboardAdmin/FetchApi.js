@@ -16,7 +16,6 @@ export const getSliderImages = async () => {
   try {
     const response = await axios.get(`${apiURL}/api/customize/get-slide-image`);
     return response.data;
-    console.log(response.data);
   } catch (error) {
     // Handle the error gracefully
     console.error("Error fetching slider images:", error);

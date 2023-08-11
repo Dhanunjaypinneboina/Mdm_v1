@@ -1,5 +1,5 @@
 import React from "react";
-import { postAddReview, postDeleteReview } from "./FetchApi";
+import { postAddReview, postDeleteReview} from "./FetchApi";
 import { isAuthenticate } from "../auth/fetchApi";
 
 export const Alert = (color, text) => (
