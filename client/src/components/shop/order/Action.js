@@ -1,14 +1,14 @@
-import {createOrder} from "./FetchApi";
-import {toast} from "react-hot-toast";
+import { createOrder } from "./FetchApi";
+import { toast } from "react-hot-toast";
 
 export const fetchData = async (cartListProduct, dispatch) => {
-  dispatch({type: "loading", payload: true});
+  dispatch({ type: "loading", payload: true });
   try {
     let responseData = await cartListProduct();
     if (responseData && responseData.Products) {
       setTimeout(function () {
-        dispatch({type: "cartProduct", payload: responseData.Products});
-        dispatch({type: "loading", payload: false});
+        dispatch({ type: "cartProduct", payload: responseData.Products });
+        dispatch({ type: "loading", payload: false });
       }, 1000);
     }
   } catch (error) {
@@ -16,20 +16,20 @@ export const fetchData = async (cartListProduct, dispatch) => {
   }
 };
 
-export const fetchbrainTree = async (getBrainTreeToken, setState) => {
-  try {
-    let responseData = await getBrainTreeToken();
-    if (responseData && responseData) {
-      setState({
-        clientToken: responseData.clientToken,
-        success: responseData.success,
-      });
-      console.log(responseData);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const fetchbrainTree = async (getBrainTreeToken, setState) => {
+//   try {
+//     let responseData = await getBrainTreeToken();
+//     if (responseData && responseData) {
+//       setState({
+//         clientToken: responseData.clientToken,
+//         success: responseData.success,
+//       });
+//       console.log(responseData);
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const pay = async (
   data,
@@ -41,9 +41,9 @@ export const pay = async (
   history
 ) => {
   if (!state.address) {
-    setState({...state, error: "Please provide your address"});
+    setState({ ...state, error: "Please provide your address" });
   } else if (!state.phone) {
-    setState({...state, error: "Please provide your phone number"});
+    setState({ ...state, error: "Please provide your phone number" });
   } else {
     try {
       const paymentData = {
@@ -79,7 +79,6 @@ export const pay = async (
       paymentObject.open();
 
       if (razorpayResponse) {
-        // console.log(razorpayResponse);
         // const {razorpay_order_id, razorpay_payment_id} = razorpayResponse;
 
         const orderData = {
@@ -95,11 +94,11 @@ export const pay = async (
 
         if (resposeData.success) {
           localStorage.setItem("cart", JSON.stringify([]));
-          dispatch({type: "cartProduct", payload: null});
-          dispatch({type: "cartTotalCost", payload: null});
-          dispatch({type: "orderSuccess", payload: true});
-          setState({clientToken: "", instance: {}});
-          dispatch({type: "loading", payload: false});
+          dispatch({ type: "cartProduct", payload: null });
+          dispatch({ type: "cartTotalCost", payload: null });
+          dispatch({ type: "orderSuccess", payload: true });
+          setState({ clientToken: "", instance: {} });
+          dispatch({ type: "loading", payload: false });
           // return history.push("/");
         } else if (resposeData.error) {
           console.log(resposeData.error);

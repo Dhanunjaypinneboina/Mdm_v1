@@ -1,21 +1,21 @@
-import React, {Fragment, useContext, useEffect} from "react";
-import {useHistory} from "react-router-dom";
-import {LayoutContext} from "../index";
-import {cartListProduct} from "./FetchApi";
-import {isAuthenticate} from "../auth/fetchApi";
-import {cartList} from "../productDetails/Mixins";
-import {subTotal, quantity, totalCost} from "./Mixins";
+import React, { Fragment, useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { LayoutContext } from "../index";
+import { cartListProduct } from "./FetchApi";
+import { isAuthenticate } from "../auth/fetchApi";
+import { cartList } from "../productDetails/Mixins";
+import { subTotal, quantity, totalCost } from "./Mixins";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
 const CartModal = () => {
   const history = useHistory();
 
-  const {data, dispatch} = useContext(LayoutContext);
+  const { data, dispatch } = useContext(LayoutContext);
   const products = data.cartProduct;
 
   const cartModalOpen = () =>
-    dispatch({type: "cartModalToggle", payload: !data.cartModal});
+    dispatch({ type: "cartModalToggle", payload: !data.cartModal });
 
   useEffect(() => {
     fetchData();
@@ -27,8 +27,8 @@ const CartModal = () => {
     try {
       let responseData = await cartListProduct();
       if (responseData && responseData.Products) {
-        dispatch({type: "cartProduct", payload: responseData.Products});
-        dispatch({type: "cartTotalCost", payload: totalCost()});
+        dispatch({ type: "cartProduct", payload: responseData.Products });
+        dispatch({ type: "cartTotalCost", payload: totalCost() });
       }
     } catch (error) {
       console.log(error);
@@ -43,13 +43,13 @@ const CartModal = () => {
       cart = cart.filter((item) => item.id !== id);
       localStorage.setItem("cart", JSON.stringify(cart));
       fetchData();
-      dispatch({type: "inCart", payload: cartList()});
-      dispatch({type: "cartTotalCost", payload: totalCost()});
+      dispatch({ type: "inCart", payload: cartList() });
+      dispatch({ type: "cartTotalCost", payload: totalCost() });
     }
     if (cart.length === 0) {
-      dispatch({type: "cartProduct", payload: null});
+      dispatch({ type: "cartProduct", payload: null });
       fetchData();
-      dispatch({type: "inCart", payload: cartList()});
+      dispatch({ type: "inCart", payload: cartList() });
     }
   };
 
@@ -65,10 +65,12 @@ const CartModal = () => {
       <section
         className={`${
           !data.cartModal ? "hidden" : ""
-        } fixed z-40 inset-0 flex items-start justify-end`}>
+        } fixed z-40 inset-0 flex items-start justify-end`}
+      >
         <div
-          style={{background: "#303031"}}
-          className="w-full md:w-5/12 lg:w-4/12 h-full flex flex-col justify-between">
+          style={{ background: "#303031" }}
+          className="w-full md:w-5/12 lg:w-4/12 h-full flex flex-col justify-between"
+        >
           <div className="overflow-y-auto">
             <div className="border-b border-gray-700 flex justify-between">
               <div className="p-4 text-white text-lg font-semibold">Cart</div>
@@ -79,7 +81,8 @@ const CartModal = () => {
                   className="w-6 h-6 cursor-pointer"
                   fill="currentColor"
                   viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg">
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -88,14 +91,14 @@ const CartModal = () => {
                 </svg>
               </div>
             </div>
-            <div className="m-4 flex-col">
+            <div className="m-2 flex-col">
               {products &&
                 products.length !== 0 &&
                 products.map((item, index) => {
                   return (
                     <Fragment key={index}>
                       {/* Cart Product Start */}
-                      <div className="text-white flex space-x-2 my-4 items-center">
+                      <div className="border border-white p-2 text-white flex space-x-2 my-2 items-center">
                         <img
                           className="w-16 h-16 object-cover object-center"
                           src={`${apiURL}/uploads/products/${item.pImages[0]}`}
@@ -126,12 +129,14 @@ const CartModal = () => {
                           {/* Cart Product Remove Button */}
                           <div
                             onClick={(e) => removeCartProduct(item._id)}
-                            className="absolute top-0 right-0 text-white">
+                            className="absolute top-0 right-0 text-white"
+                          >
                             <svg
                               className="w-5 h-5 cursor-pointer"
                               fill="currentColor"
                               viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg">
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
                               <path
                                 fillRule="evenodd"
                                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -156,7 +161,8 @@ const CartModal = () => {
           <div className="m-4 space-y-4">
             <div
               onClick={(e) => cartModalOpen()}
-              className="cursor-pointer px-4 py-2 border border-gray-400 text-white text-center cursor-pointer">
+              className="cursor-pointer px-4 py-2 border border-gray-400 text-white text-center cursor-pointer"
+            >
               Continue shopping
             </div>
             {data.cartTotalCost ? (
@@ -167,8 +173,9 @@ const CartModal = () => {
                     onClick={(e) => {
                       history.push("/checkout");
                       cartModalOpen();
-                    }}>
-                    Checkout ${data.cartTotalCost}.00
+                    }}
+                  >
+                    Checkout ₹{data.cartTotalCost}.00
                   </div>
                 ) : (
                   <div
@@ -184,7 +191,8 @@ const CartModal = () => {
                         type: "loginSignupModalToggle",
                         payload: !data.loginSignupModal,
                       });
-                    }}>
+                    }}
+                  >
                     Checkout ₹{data.cartTotalCost}.00
                   </div>
                 )}

@@ -25,7 +25,6 @@ const SingleProduct = (props) => {
     dispatch({ type: "loading", payload: true });
     try {
       let responseData = await getAllProduct();
-      console.log(responseData);
       setTimeout(() => {
         if (responseData && responseData.Products) {
           dispatch({ type: "setProducts", payload: responseData.Products });
@@ -64,7 +63,7 @@ const SingleProduct = (props) => {
         products.map((item, index) => {
           return (
             <Fragment key={index}>
-              <div className="relative col-span-1 m-2">
+              <div className="border border-dark relative col-span-1 m-2 p-2">
                 <img
                   onClick={(e) => history.push(`/products/${item._id}`)}
                   className="w-full object-cover object-center cursor-pointer"

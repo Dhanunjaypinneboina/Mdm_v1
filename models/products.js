@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-/// const {ObjectId} = mongoose.Schema.Types;
+const { ObjectId } = mongoose.Schema.Types;
 
 const productSchema = new mongoose.Schema(
   {
@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema(
       default: 0,
     },
     pCategory: {
-      type: mongoose.ObjectId,
+      type: ObjectId,
       ref: "categories",
     },
     pImages: {
@@ -38,7 +38,7 @@ const productSchema = new mongoose.Schema(
     pRatingsReviews: [
       {
         review: String,
-        user: {type: mongoose.ObjectId, ref: "users"},
+        user: { type: mongoose.ObjectId, ref: "users" },
         rating: String,
         createdAt: {
           type: Date,
@@ -51,7 +51,10 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
   },
-  {timestamps: true}
+  { timestamps: true }
 );
 
-export default mongoose.model("products", productSchema);
+// export default mongoose.model("products", productSchema);
+
+const productModel = mongoose.model("products", productSchema);
+export default productModel;

@@ -1,13 +1,13 @@
-import React, {Fragment, useEffect, useContext} from "react";
+import React, { Fragment, useEffect, useContext } from "react";
 import OrderSuccessMessage from "./OrderSuccessMessage";
-import {HomeContext} from "./";
-import {sliderImages} from "../../admin/dashboardAdmin/Action";
+import { HomeContext } from "./";
+import { sliderImages } from "../../admin/dashboardAdmin/Action";
 import Carousel from "react-bootstrap/Carousel";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
 const Slider = (props) => {
-  const {data, dispatch} = useContext(HomeContext);
+  const { data, dispatch } = useContext(HomeContext);
 
   useEffect(() => {
     sliderImages(dispatch);
@@ -17,9 +17,9 @@ const Slider = (props) => {
   // console.log(data.sliderImages.map((each, index) => index));
   return (
     <Fragment>
-      <div className="relative mt-16 bg-gray-100 border-2">
+      <div className="relative mt-20 bg-gray-100 border-2">
         {data.sliderImages.length > 0 ? (
-          <Carousel data-bs-theme="dark" style={{height: "40%"}}>
+          <Carousel data-bs-theme="dark" style={{ height: "100%" }}>
             {data.sliderImages.map((each, index) => (
               <Carousel.Item key={index}>
                 <img

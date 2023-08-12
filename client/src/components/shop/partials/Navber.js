@@ -1,82 +1,78 @@
-import React, {Fragment, useContext} from "react";
-import {useHistory, useLocation} from "react-router-dom";
-import {BsCart4} from "react-icons/bs";
-import {Badge} from "antd";
+import React, { Fragment, useContext } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { BsCart4 } from "react-icons/bs";
+import { Badge } from "antd";
+import { FaBars } from "react-icons/fa";
 import "./style.css";
 
-import {logout} from "./Action";
-import {LayoutContext} from "../index";
-import {isAdmin} from "../auth/fetchApi";
+import { logout } from "./Action";
+import { LayoutContext } from "../index";
+import { isAdmin } from "../auth/fetchApi";
 
 const Navber = (props) => {
   const history = useHistory();
   const location = useLocation();
 
-  const {data, dispatch} = useContext(LayoutContext);
+  const { data, dispatch } = useContext(LayoutContext);
 
   const navberToggleOpen = () =>
     data.navberHamburger
-      ? dispatch({type: "hamburgerToggle", payload: false})
-      : dispatch({type: "hamburgerToggle", payload: true});
+      ? dispatch({ type: "hamburgerToggle", payload: false })
+      : dispatch({ type: "hamburgerToggle", payload: true });
 
   const loginModalOpen = () =>
     data.loginSignupModal
-      ? dispatch({type: "loginSignupModalToggle", payload: false})
-      : dispatch({type: "loginSignupModalToggle", payload: true});
+      ? dispatch({ type: "loginSignupModalToggle", payload: false })
+      : dispatch({ type: "loginSignupModalToggle", payload: true });
 
   const cartModalOpen = () =>
     data.cartModal
-      ? dispatch({type: "cartModalToggle", payload: false})
-      : dispatch({type: "cartModalToggle", payload: true});
+      ? dispatch({ type: "cartModalToggle", payload: false })
+      : dispatch({ type: "cartModalToggle", payload: true });
 
   return (
     <Fragment>
       {/* Navber Section */}
-      <nav className="fixed top-0 w-full z-20   bg-white">
-        <div className="m-4 md:mx-12 md:my-6 grid grid-cols-4 lg:grid-cols-3">
+      <nav className="fixed top-0 w-full z-20 bg-white">
+        <div className="m-3 md:mx-12 md:my-6 grid grid-cols-4 lg:grid-cols-3">
           <div className="hidden lg:block col-span-1 flex text-gray-600 mt-1">
             <span
               className="hover:bg-gray-200 px-4 py-3 rounded-lg font-light tracking-widest hover:text-gray-800 cursor-pointer"
-              onClick={(e) => history.push("/")}>
+              onClick={(e) => history.push("/")}
+            >
               Shop
             </span>
             <span
               className="hover:bg-gray-200 px-4 py-3 rounded-lg font-light tracking-widest hover:text-gray-800 cursor-pointer"
-              onClick={(e) => history.push("/blog")}>
+              onClick={(e) => history.push("/blog")}
+            >
               Blog
             </span>
             <span
               className="hover:bg-gray-200 px-4 py-3 rounded-lg font-light tracking-widest hover:text-gray-800 cursor-pointer"
-              onClick={(e) => history.push("/contact-us")}>
+              onClick={(e) => history.push("/contact-us")}
+            >
               Contact us
             </span>
           </div>
           <div className="col-span-2 lg:hidden flex justify-items-stretch	 items-center">
-            <svg
+            <FaBars
+              className="col-span-1 lg:hidden w-6 h-6 cursor-pointer text-gray-600"
               onClick={(e) => navberToggleOpen()}
-              className="col-span-1 lg:hidden w-8 h-8 cursor-pointer text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+            />
             <span
               onClick={(e) => history.push("/")}
-              style={{letterSpacing: "0.10rem"}}
-              className="flex items-left text-center font-bold uppercase text-gray-800 text-2xl cursor-pointer px-2 text-center">
+              style={{ letterSpacing: "0.10rem" }}
+              className="flex items-left text-center font-bold uppercase text-gray-800 text-2xl cursor-pointer px-2 text-center"
+            >
               MDM
             </span>
           </div>
           <div
             onClick={(e) => history.push("/")}
-            style={{letterSpacing: "0.70rem"}}
-            className="hidden lg:block flex items-left col-span-1 text-center text-gray-800 font-bold tracking-widest uppercase text-2xl cursor-pointer">
+            style={{ letterSpacing: "0.70rem" }}
+            className="hidden lg:block flex items-left col-span-1 text-center text-gray-800 font-bold tracking-widest uppercase text-2xl cursor-pointer"
+          >
             MDM
           </div>
           <div className="flex items-right col-span-2 lg:col-span-1 flex justify-end">
@@ -84,7 +80,8 @@ const Navber = (props) => {
             <div
               onClick={(e) => history.push("/wish-list")}
               className="hover:bg-gray-200 rounded-lg px-2 py-2 cursor-pointer"
-              title="Wishlist">
+              title="Wishlist"
+            >
               <svg
                 className={`${
                   location.pathname === "/wish-list"
@@ -94,7 +91,8 @@ const Navber = (props) => {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -107,13 +105,15 @@ const Navber = (props) => {
               <Fragment>
                 <div
                   className="userDropdownBtn hover:bg-gray-200 px-2 py-2 rounded-lg relative"
-                  title="Logout">
+                  title="Logout"
+                >
                   <svg
                     className="cursor-pointer w-8 h-8 text-gray-600 hover:text-gray-800"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -127,14 +127,16 @@ const Navber = (props) => {
                         <li className="flex flex-col text-gray-700 w-48 shadow-lg">
                           <span
                             onClick={(e) => history.push("/user/orders")}
-                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer">
+                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer"
+                          >
                             <span>
                               <svg
                                 className="w-6 h-6"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -147,14 +149,16 @@ const Navber = (props) => {
                           </span>
                           <span
                             onClick={(e) => history.push("/user/profile")}
-                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer">
+                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer"
+                          >
                             <span>
                               <svg
                                 className="w-6 h-6"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -167,14 +171,16 @@ const Navber = (props) => {
                           </span>
                           <span
                             onClick={(e) => history.push("/wish-list")}
-                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer">
+                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer"
+                          >
                             <span>
                               <svg
                                 className="w-6 h-6"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -187,14 +193,16 @@ const Navber = (props) => {
                           </span>
                           <span
                             onClick={(e) => history.push("/user/setting")}
-                            className="flex space-x-1 py-2 px-8 hover:bg-gray-400 cursor-pointer">
+                            className="flex space-x-1 py-2 px-8 hover:bg-gray-400 cursor-pointer"
+                          >
                             <span>
                               <svg
                                 className="w-6 h-6"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -213,14 +221,16 @@ const Navber = (props) => {
                           </span>
                           <span
                             onClick={(e) => logout()}
-                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer">
+                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer"
+                          >
                             <span>
                               <svg
                                 className="w-6 h-6"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -238,14 +248,16 @@ const Navber = (props) => {
                         <li className="flex flex-col text-gray-700 w-48 shadow-lg">
                           <span
                             onClick={(e) => history.push("/admin/dashboard")}
-                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer">
+                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer"
+                          >
                             <span>
                               <svg
                                 className="w-6 h-6"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -264,14 +276,16 @@ const Navber = (props) => {
                           </span>
                           <span
                             onClick={(e) => logout()}
-                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer">
+                            className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer"
+                          >
                             <span>
                               <svg
                                 className="w-6 h-6"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -293,13 +307,15 @@ const Navber = (props) => {
               <div
                 onClick={(e) => loginModalOpen()}
                 className="cursor-pointer hover:bg-gray-200 px-2 py-2 rounded-lg"
-                title="Login">
+                title="Login"
+              >
                 <svg
                   className="w-8 h-8 text-gray-600 hover:text-gray-800"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -313,11 +329,13 @@ const Navber = (props) => {
             <div
               onClick={(e) => cartModalOpen()}
               className="hover:bg-gray-200 px-2 py-2 rounded-lg relative cursor-pointer"
-              title="Cart">
+              title="Cart"
+            >
               <Badge
                 count={data.cartProduct !== null ? data.cartProduct.length : 0}
                 showZero
-                offset={[10, -5]}>
+                offset={[5, -2]}
+              >
                 <BsCart4 className="w-8 h-8 text-gray-600 hover:text-gray-800" />
               </Badge>
             </div>
@@ -328,21 +346,25 @@ const Navber = (props) => {
             data.navberHamburger && data.navberHamburger
               ? "px-1 pb-2 md:pb-0 md:px-10 lg:hidden"
               : "hidden px-1 pb-2 md:pb-0 md:px-10 lg:hidden"
-          }>
+          }
+        >
           <div className="col-span-1 flex flex-col text-gray-600">
             <span
               className="font-medium text-lg tracking-widest hover:text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer"
-              onClick={(e) => history.push("/")}>
+              onClick={(e) => history.push("/")}
+            >
               Shop
             </span>
             <span
               className="font-medium text-lg tracking-widest hover:text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer"
-              onClick={(e) => history.push("/blog")}>
+              onClick={(e) => history.push("/blog")}
+            >
               Blog
             </span>
             <span
               className="font-medium text-lg tracking-widest hover:text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer"
-              onClick={(e) => history.push("/contact-us")}>
+              onClick={(e) => history.push("/contact-us")}
+            >
               Contact us
             </span>
           </div>
@@ -354,7 +376,3 @@ const Navber = (props) => {
 };
 
 export default Navber;
-
-// <span className="absolute top-0 ml-6 mt-1 bg-yellow-700 rounded px-1 text-white text-xs hover:text-gray-200 font-semibold">
-//                 {data.cartProduct !== null ? data.cartProduct.length : 0}
-//               </span>

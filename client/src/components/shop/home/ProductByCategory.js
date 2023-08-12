@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import Layout from "../layout";
 import { productByCategory } from "../../admin/products/FetchApi";
+import { MdOutlineDoubleArrow } from "react-icons/md";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
@@ -12,30 +13,15 @@ const Submenu = ({ category }) => {
       {/* Submenu Section */}
       <section className="mx-4 mt-24 md:mx-12 md:mt-32 lg:mt-24">
         <div className="flex justify-between items-center">
-          <div className="text-sm flex space-x-3">
+          <div className="flex justify-between items-center text-sm flex space-x-3">
             <span
-              className="hover:text-yellow-700 cursor-pointer"
+              className="hover:text-yellow-1000 cursor-pointer"
               onClick={(e) => history.push("/")}
             >
               Shop
             </span>
-            <span className="text-yellow-700 cursor-default">{category}</span>
-          </div>
-          <div>
-            <svg
-              className="w-3 h-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 5l7 7-7 7M5 5l7 7-7 7"
-              />
-            </svg>
+            <MdOutlineDoubleArrow />
+            <span className="text-yellow-1000 cursor-default">{category}</span>
           </div>
         </div>
       </section>
@@ -56,7 +42,7 @@ const AllProduct = ({ products }) => {
           products.map((item, index) => {
             return (
               <Fragment key={index}>
-                <div className="relative col-span-1 m-2">
+                <div className="border border-dark p-2 col-span-1 m-2">
                   <img
                     onClick={(e) => history.push(`/products/${item._id}`)}
                     className="w-full object-cover object-center cursor-pointer"
@@ -89,7 +75,7 @@ const AllProduct = ({ products }) => {
                       </span>
                     </div>
                   </div>
-                  <div>{item.pPrice}.00$</div>
+                  <div>{item.pPrice}.00₹</div>
                   <div className="absolute top-0 right-0 mx-2 my-2 md:mx-4">
                     <svg
                       className="w-5 h-5 md:w-6 md:h-6 cursor-pointer text-yellow-700"
@@ -146,7 +132,6 @@ const PageComponent = () => {
     </Fragment>
   );
 };
- 
 
 const ProductByCategory = (props) => {
   return (

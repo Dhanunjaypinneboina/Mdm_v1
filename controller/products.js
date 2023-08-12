@@ -1,6 +1,6 @@
-import productModel from "../models/products.js";
 import fs from "fs";
 import path from "path";
+import productModel from "../models/products.js";
 
 class Product {
   //  Delete Image from uploads -> products folder
@@ -221,19 +221,30 @@ class Product {
 
   async getProductByPrice(req, res) {
     let { price } = req.body;
+
     if (!price) {
       return res.json({ error: "All filled must be required" });
     } else {
       try {
-        let products = await productModel
-          .find({ pPrice: { $lt: price } })
+        const intPrice = parseInt(price);
+        if (isNaN(intPrice) || intPrice < 0) {
+          return res.json({ error: "Invalid price value." });
+        }
+
+        const products = await productModel
+          .find({ pPrice: { $lte: intPrice } })
           .populate("pCategory", "cName")
           .sort({ pPrice: -1 });
+
+        console.log(products);
         if (products) {
           return res.json({ Products: products });
         }
       } catch (err) {
-        return res.json({ error: "Filter product wrong" });
+        console.error(err);
+        return res.json({
+          error: "An error occurred while fetching products.",
+        });
       }
     }
   }
@@ -374,3 +385,5 @@ class Product {
 
 const productController = new Product();
 export default productController;
+
+// .find({ pPrice: { $lt: price } })

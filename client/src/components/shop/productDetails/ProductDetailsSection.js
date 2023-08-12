@@ -1,25 +1,24 @@
-import React, {Fragment, useState, useEffect, useContext} from "react";
-import {useParams} from "react-router-dom";
-import {ProductDetailsContext} from "./index";
-import {LayoutContext} from "../layout";
+import React, { Fragment, useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { ProductDetailsContext } from "./index";
+import { LayoutContext } from "../layout";
 import Submenu from "./Submenu";
 import ProductDetailsSectionTwo from "./ProductDetailsSectionTwo";
 
-import {getSingleProduct} from "./FetchApi";
-import {cartListProduct} from "../partials/FetchApi";
+import { getSingleProduct } from "./FetchApi";
+import { cartListProduct } from "../partials/FetchApi";
 
-import {isWishReq, unWishReq, isWish} from "../home/Mixins";
-import {updateQuantity, slideImage, addToCart, cartList} from "./Mixins";
-import {totalCost} from "../partials/Mixins";
-
+import { isWishReq, unWishReq, isWish } from "../home/Mixins";
+import { updateQuantity, slideImage, addToCart, cartList } from "./Mixins";
+import { totalCost } from "../partials/Mixins";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
 const ProductDetailsSection = (props) => {
-  let {id} = useParams();
+  let { id } = useParams();
 
-  const {data, dispatch} = useContext(ProductDetailsContext);
-  const {data: layoutData, dispatch: layoutDispatch} =
+  const { data, dispatch } = useContext(ProductDetailsContext);
+  const { data: layoutData, dispatch: layoutDispatch } =
     useContext(LayoutContext); // Layout Context
 
   const sProduct = layoutData.singleProductDetail;
@@ -39,7 +38,7 @@ const ProductDetailsSection = (props) => {
   }, []);
 
   const fetchData = async () => {
-    dispatch({type: "loading", payload: true});
+    dispatch({ type: "loading", payload: true });
     try {
       let responseData = await getSingleProduct(id);
       setTimeout(() => {
@@ -49,8 +48,8 @@ const ProductDetailsSection = (props) => {
             payload: responseData.Product,
           }); // Dispatch in layout context
           setPimages(responseData.Product.pImages);
-          dispatch({type: "loading", payload: false});
-          layoutDispatch({type: "inCart", payload: cartList()}); // This function change cart in cart state
+          dispatch({ type: "loading", payload: false });
+          layoutDispatch({ type: "inCart", payload: cartList() }); // This function change cart in cart state
         }
         if (responseData.error) {
           console.log(responseData.error);
@@ -66,7 +65,7 @@ const ProductDetailsSection = (props) => {
     try {
       let responseData = await cartListProduct();
       if (responseData && responseData.Products) {
-        layoutDispatch({type: "cartProduct", payload: responseData.Products}); // Layout context Cartproduct fetch and dispatch
+        layoutDispatch({ type: "cartProduct", payload: responseData.Products }); // Layout context Cartproduct fetch and dispatch
       }
     } catch (error) {
       console.log(error);
@@ -81,18 +80,21 @@ const ProductDetailsSection = (props) => {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg">
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
-            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          ></path>
         </svg>
       </div>
     );
   } else if (!sProduct) {
     return <div>No product</div>;
   }
+
   return (
     <Fragment>
       <Submenu
@@ -162,7 +164,8 @@ const ProductDetailsSection = (props) => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -178,7 +181,8 @@ const ProductDetailsSection = (props) => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -206,7 +210,8 @@ const ProductDetailsSection = (props) => {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -221,7 +226,8 @@ const ProductDetailsSection = (props) => {
                     } w-5 h-5 md:w-6 md:h-6 cursor-pointer text-yellow-700`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       fillRule="evenodd"
                       d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
@@ -231,11 +237,11 @@ const ProductDetailsSection = (props) => {
                 </span>
               </div>
             </div>
-            {console.log(sProduct.pDescription)}
+
             <div className="my-2 md:my-6 text-gray-600">
               <div
-                dangerouslySetInnerHTML={{__html: sProduct.pDescription}}
-                style={{marginLeft: "-1.5rem", marginTop: "-1rem"}}
+                dangerouslySetInnerHTML={{ __html: sProduct.pDescription }}
+                style={{ marginLeft: "-1rem", marginTop: "1rem" }}
               />
             </div>
 
@@ -248,11 +254,13 @@ const ProductDetailsSection = (props) => {
               <div
                 className={`flex justify-between items-center px-4 py-2 border ${
                   +quantitiy === +sProduct.pQuantity && "border-red-500"
-                }`}>
+                }`}
+              >
                 <div
                   className={`${
                     quantitiy === sProduct.pQuantity && "text-red-500"
-                  }`}>
+                  }`}
+                >
                   Quantity
                 </div>
                 {/* Quantity Button */}
@@ -271,12 +279,14 @@ const ProductDetailsSection = (props) => {
                               setQuantitiy,
                               setAlertq
                             )
-                          }>
+                          }
+                        >
                           <svg
                             className="w-5 h-5 fill-current cursor-pointer"
                             fill="currentColor"
                             viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
                             <path
                               fillRule="evenodd"
                               d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
@@ -294,12 +304,14 @@ const ProductDetailsSection = (props) => {
                               setQuantitiy,
                               setAlertq
                             )
-                          }>
+                          }
+                        >
                           <svg
                             className="w-5 h-5 fill-current cursor-pointer"
                             fill="currentColor"
                             viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
                             <path
                               fillRule="evenodd"
                               d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -315,7 +327,8 @@ const ProductDetailsSection = (props) => {
                             className="w-5 h-5 fill-current cursor-not-allowed"
                             fill="currentColor"
                             viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
                             <path
                               fillRule="evenodd"
                               d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
@@ -329,7 +342,8 @@ const ProductDetailsSection = (props) => {
                             className="w-5 h-5 fill-current cursor-not-allowed"
                             fill="currentColor"
                             viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
                             <path
                               fillRule="evenodd"
                               d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -347,7 +361,8 @@ const ProductDetailsSection = (props) => {
                         className="w-5 h-5 fill-current cursor-not-allowed"
                         fill="currentColor"
                         viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <path
                           fillRule="evenodd"
                           d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
@@ -361,7 +376,8 @@ const ProductDetailsSection = (props) => {
                         className="w-5 h-5 fill-current cursor-not-allowed"
                         fill="currentColor"
                         viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <path
                           fillRule="evenodd"
                           d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -379,8 +395,9 @@ const ProductDetailsSection = (props) => {
                   {layoutData.inCart !== null &&
                   layoutData.inCart.includes(sProduct._id) === true ? (
                     <div
-                      style={{background: "#303031"}}
-                      className={`px-4 py-2 text-white text-center cursor-not-allowed uppercase opacity-75`}>
+                      style={{ background: "#303031" }}
+                      className={`px-4 py-2 text-white text-center cursor-not-allowed uppercase opacity-75`}
+                    >
                       Add to Cart bbbbbbbbbbbbbb
                     </div>
                   ) : (
@@ -397,8 +414,9 @@ const ProductDetailsSection = (props) => {
                           totalCost
                         )
                       }
-                      style={{background: "#303031"}}
-                      className={`px-4 py-2 text-white text-center cursor-pointer uppercase`}>
+                      style={{ background: "#303031" }}
+                      className={`px-4 py-2 text-white text-center cursor-pointer uppercase`}
+                    >
                       Add to cart aaaaaaaaaaaaaaaaaaaaaaaa
                     </div>
                   )}
@@ -408,15 +426,17 @@ const ProductDetailsSection = (props) => {
                   {layoutData.inCart !== null &&
                   layoutData.inCart.includes(sProduct._id) === true ? (
                     <div
-                      style={{background: "#303031"}}
-                      className={`px-4 py-2 text-white text-center cursor-not-allowed uppercase opacity-75`}>
+                      style={{ background: "#303031" }}
+                      className={`px-4 py-2 text-white text-center cursor-not-allowed uppercase opacity-75`}
+                    >
                       In cart
                     </div>
                   ) : (
                     <div
-                      style={{background: "#303031"}}
+                      style={{ background: "#303031" }}
                       disabled={true}
-                      className="px-4 py-2 text-white opacity-50 cursor-not-allowed text-center uppercase">
+                      className="px-4 py-2 text-white opacity-50 cursor-not-allowed text-center uppercase"
+                    >
                       Out of stock
                     </div>
                   )}
