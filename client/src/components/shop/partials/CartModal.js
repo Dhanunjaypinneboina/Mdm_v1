@@ -1,19 +1,19 @@
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { LayoutContext } from "../index";
 import { cartListProduct } from "./FetchApi";
 import { isAuthenticate } from "../auth/fetchApi";
 import { cartList } from "../productDetails/Mixins";
 import { subTotal, quantity, totalCost } from "./Mixins";
+import { FiPlus, FiMinus } from "react-icons/fi";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
 const CartModal = () => {
   const history = useHistory();
-
+  const [count, setCount] = useState(2);
   const { data, dispatch } = useContext(LayoutContext);
   const products = data.cartProduct;
-
   const cartModalOpen = () =>
     dispatch({ type: "cartModalToggle", payload: !data.cartModal });
 
@@ -32,6 +32,36 @@ const CartModal = () => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const updateQuantity = (type, Pid, changeAmount) => {
+    const cartData = JSON.parse(localStorage.getItem("cart"));
+    const itemIndex = cartData.findIndex((item) => item.id === Pid);
+
+    if (itemIndex !== -1) {
+      if (type === "increase") {
+        cartData[itemIndex].quantitiy += 1;
+        cartData[itemIndex].price =
+          cartData[itemIndex].quantitiy * changeAmount;
+      } else if (type === "decrease") {
+        if (cartData[itemIndex].quantitiy > 1) {
+          cartData[itemIndex].quantitiy -= 1;
+          cartData[itemIndex].price =
+            cartData[itemIndex].quantitiy * changeAmount;
+        }
+      }
+
+      // Save the updated cart data back to local storage
+      localStorage.setItem("cart", JSON.stringify(cartData));
+
+      // Log the updated cart data
+      console.log("Updated Cart Data:", cartData);
+
+      // Fetch updated cart data and update state
+      fetchData();
+    } else {
+      console.log("Item not found in cart");
     }
   };
 
@@ -69,7 +99,7 @@ const CartModal = () => {
       >
         <div
           style={{ background: "#303031" }}
-          className="w-full md:w-5/12 lg:w-4/12 h-full flex flex-col justify-between"
+          className="w-full md:w-6/12 lg:w-4/12 h-full flex flex-col justify-between"
         >
           <div className="overflow-y-auto">
             <div className="border-b border-gray-700 flex justify-between">
@@ -109,12 +139,33 @@ const CartModal = () => {
                           <div className="flex items-center justify-between">
                             <div className="flex items-center justify-between space-x-2">
                               <div className="text-sm text-gray-400">
-                                Quantity :
+                                Quantity
                               </div>
-                              <div className="flex items-end">
+
+                              <div className="flex items-end items-center">
+                                <FiMinus
+                                  class="mr-1"
+                                  onClick={(e) =>
+                                    updateQuantity(
+                                      "decrease",
+                                      item._id,
+                                      item.pPrice
+                                    )
+                                  }
+                                />
                                 <span className="text-sm text-gray-200">
                                   {quantity(item._id)}
                                 </span>
+                                <FiPlus
+                                  class="ml-1"
+                                  onClick={(e) =>
+                                    updateQuantity(
+                                      "increase",
+                                      item._id,
+                                      item.pPrice
+                                    )
+                                  }
+                                />
                               </div>
                             </div>
                             <div>

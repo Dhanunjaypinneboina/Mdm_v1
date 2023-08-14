@@ -8,9 +8,9 @@ class User {
         .find({})
         .populate("allProduct.id", "pName pImages pPrice")
         .populate("user", "name email")
-        .sort({_id: -1});
+        .sort({ _id: -1 });
       if (Users) {
-        return res.json({Users});
+        return res.json({ Users });
       }
     } catch (err) {
       console.log(err);
@@ -18,16 +18,16 @@ class User {
   }
 
   async getSingleUser(req, res) {
-    let {uId} = req.body;
+    let { uId } = req.body;
     if (!uId) {
-      return res.json({error: "All filled must be required"});
+      return res.json({ error: "All filled must be required" });
     } else {
       try {
         let User = await userModel
           .findById(uId)
           .select("name email phoneNumber userImage updatedAt createdAt");
         if (User) {
-          return res.json({User});
+          return res.json({ User });
         }
       } catch (err) {
         console.log(err);
@@ -36,7 +36,7 @@ class User {
   }
 
   async postAddUser(req, res) {
-    let {allProduct, user, amount, transactionId, address, phone} = req.body;
+    let { allProduct, user, amount, transactionId, address, phone } = req.body;
     if (
       !allProduct ||
       !user ||
@@ -45,7 +45,7 @@ class User {
       !address ||
       !phone
     ) {
-      return res.json({message: "All filled must be required"});
+      return res.json({ message: "All filled must be required" });
     } else {
       try {
         let newUser = new userModel({
@@ -58,18 +58,18 @@ class User {
         });
         let save = await newUser.save();
         if (save) {
-          return res.json({success: "User created successfully"});
+          return res.json({ success: "User created successfully" });
         }
       } catch (err) {
-        return res.json({error: error});
+        return res.json({ error: error });
       }
     }
   }
 
   async postEditUser(req, res) {
-    let {uId, name, phoneNumber} = req.body;
+    let { uId, name, phoneNumber } = req.body;
     if (!uId || !name || !phoneNumber) {
-      return res.json({message: "All filled must be required"});
+      return res.json({ message: "All filled must be required" });
     } else {
       let currentUser = userModel.findByIdAndUpdate(uId, {
         name: name,
@@ -78,15 +78,15 @@ class User {
       });
       currentUser.exec((err, result) => {
         if (err) console.log(err);
-        return res.json({success: "User updated successfully"});
+        return res.json({ success: "User updated successfully" });
       });
     }
   }
 
   async getDeleteUser(req, res) {
-    let {oId, status} = req.body;
+    let { oId, status } = req.body;
     if (!oId || !status) {
-      return res.json({message: "All filled must be required"});
+      return res.json({ message: "All filled must be required" });
     } else {
       let currentUser = userModel.findByIdAndUpdate(oId, {
         status: status,
@@ -94,17 +94,17 @@ class User {
       });
       currentUser.exec((err, result) => {
         if (err) console.log(err);
-        return res.json({success: "User updated successfully"});
+        return res.json({ success: "User updated successfully" });
       });
     }
   }
 
   async changePassword(req, res) {
-    let {uId, oldPassword, newPassword} = req.body;
+    let { uId, oldPassword, newPassword } = req.body;
     if (!uId || !oldPassword || !newPassword) {
-      return res.json({message: "All filled must be required"});
+      return res.json({ message: "All filled must be required" });
     } else {
-      const data = await userModel.findOne({_id: uId});
+      const data = await userModel.findOne({ _id: uId });
       if (!data) {
         return res.json({
           error: "Invalid user",
@@ -118,7 +118,7 @@ class User {
           });
           passChange.exec((err, result) => {
             if (err) console.log(err);
-            return res.json({success: "Password updated successfully"});
+            return res.json({ success: "Password updated successfully" });
           });
         } else {
           return res.json({
@@ -126,6 +126,18 @@ class User {
           });
         }
       }
+    }
+  }
+
+  async getUserByNameAndEmail(req, res) {
+    const { userId } = req.body;
+    console.log(userId);
+    try {
+      const user = await userModel.findById(userId);
+      return user;
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      throw error;
     }
   }
 }

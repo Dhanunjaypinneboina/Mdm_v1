@@ -9,7 +9,7 @@ import RelatedProducts from "./RelatedProducts";
 
 import { isAuthenticate } from "../auth/fetchApi";
 
-// import "./style.css";
+import "./style.css";
 
 const Menu = () => {
   const { data, dispatch } = useContext(ProductDetailsContext);

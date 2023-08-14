@@ -39,14 +39,14 @@ const CategoryList = () => {
                   onClick={(e) =>
                     history.push(`/products/category/${item._id}`)
                   }
-                  className="col-span-1  flex flex-col items-center justify-center space-y-2 cursor-pointer"
+                  className="mb-3 col-span-1  flex flex-col items-center justify-center space-y-2 cursor-pointer"
                 >
                   <img
                     src={`${apiURL}/uploads/categories/${item.cImage}`}
                     alt="pic"
                     class="h-20"
                   />
-                  <div className="font-medium">{item.cName}</div>
+                  <div className="font-medium mt-0">{item.cName}</div>
                 </div>
               </Fragment>
             );

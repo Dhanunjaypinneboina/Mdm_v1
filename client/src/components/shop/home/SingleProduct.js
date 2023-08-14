@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { getAllProduct } from "../../admin/products/FetchApi";
 import { HomeContext } from "./index";
 import { isWishReq, unWishReq, isWish } from "./Mixins";
-
+// import ReactTooltip from "react-tooltip";
 const apiURL = process.env.REACT_APP_API_URL;
 
 const SingleProduct = (props) => {

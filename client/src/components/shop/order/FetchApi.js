@@ -1,5 +1,7 @@
 import axios from "axios";
+
 const apiURL = process.env.REACT_APP_API_URL;
+
 // export const getBrainTreeToken = async () => {
 //   let uId = JSON.parse(localStorage.getItem("jwt")).user._id;
 //   try {
@@ -42,6 +44,7 @@ export const getPaymentProcess = async (paymentData) => {
       return;
     }
 
+    console.log(paymentData);
     const res = await axios.post(`${apiURL}/api/razorpay/payment`, paymentData);
     const { data } = res;
     return data;

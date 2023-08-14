@@ -4,6 +4,7 @@ import { ProductDetailsContext } from "./index";
 import { LayoutContext } from "../layout";
 import Submenu from "./Submenu";
 import ProductDetailsSectionTwo from "./ProductDetailsSectionTwo";
+import { toast } from "react-hot-toast";
 
 import { getSingleProduct } from "./FetchApi";
 import { cartListProduct } from "../partials/FetchApi";
@@ -95,6 +96,26 @@ const ProductDetailsSection = (props) => {
     return <div>No product</div>;
   }
 
+  const handleAddToCart = async () => {
+    try {
+      await addToCart(
+        sProduct._id,
+        quantitiy,
+        sProduct.pPrice,
+        layoutDispatch, // Assuming this is defined somewhere
+        setQuantitiy,
+        setAlertq, // Assuming this is defined somewhere
+        fetchData, // Assuming this is defined somewhere
+        totalCost
+      );
+
+      toast.success("Success");
+    } catch (error) {
+      console.error(error);
+      // Handle error here, if needed
+    }
+  };
+
   return (
     <Fragment>
       <Submenu
@@ -113,7 +134,7 @@ const ProductDetailsSection = (props) => {
               }
               className={`${
                 count === 0 ? "" : "opacity-25"
-              } cursor-pointer w-15 h-15 object-cover object-center`}
+              }  border border-dark cursor-pointer w-15 h-15 object-cover object-center`}
               src={`${apiURL}/uploads/products/${sProduct.pImages[0]}`}
               alt="pic"
             />
@@ -123,7 +144,7 @@ const ProductDetailsSection = (props) => {
               }
               className={`${
                 count === 1 ? "" : "opacity-25"
-              } cursor-pointer w-15 h-15 object-cover object-center`}
+              } border border-dark cursor-pointer w-15 h-15 object-cover object-center`}
               src={`${apiURL}/uploads/products/${sProduct.pImages[1]}`}
               alt="pic"
             />
@@ -133,7 +154,7 @@ const ProductDetailsSection = (props) => {
               }
               className={`${
                 count === 2 ? "" : "opacity-25"
-              } cursor-pointer w-15 h-15 object-cover object-center`}
+              } border border-dark cursor-pointer w-15 h-15 object-cover object-center`}
               src={`${apiURL}/uploads/products/${sProduct.pImages[2]}`}
               alt="pic"
             />
@@ -143,7 +164,7 @@ const ProductDetailsSection = (props) => {
               }
               className={`${
                 count === 3 ? "" : "opacity-25"
-              } cursor-pointer w-15 h-15 object-cover object-center`}
+              } border border-dark cursor-pointer w-15 h-15 object-cover object-center`}
               src={`${apiURL}/uploads/products/${sProduct.pImages[3]}`}
               alt="pic"
             />
@@ -398,26 +419,15 @@ const ProductDetailsSection = (props) => {
                       style={{ background: "#303031" }}
                       className={`px-4 py-2 text-white text-center cursor-not-allowed uppercase opacity-75`}
                     >
-                      Add to Cart bbbbbbbbbbbbbb
+                      Add to Cart
                     </div>
                   ) : (
                     <div
-                      onClick={(e) =>
-                        addToCart(
-                          sProduct._id,
-                          quantitiy,
-                          sProduct.pPrice,
-                          layoutDispatch,
-                          setQuantitiy,
-                          setAlertq,
-                          fetchData,
-                          totalCost
-                        )
-                      }
+                      onClick={handleAddToCart}
                       style={{ background: "#303031" }}
                       className={`px-4 py-2 text-white text-center cursor-pointer uppercase`}
                     >
-                      Add to cart aaaaaaaaaaaaaaaaaaaaaaaa
+                      Add to cart
                     </div>
                   )}
                 </Fragment>

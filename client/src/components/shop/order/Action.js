@@ -1,5 +1,6 @@
 import { createOrder } from "./FetchApi";
 import { toast } from "react-hot-toast";
+import { getUserDtails } from "../dashboardUser/FetchApi";
 
 export const fetchData = async (cartListProduct, dispatch) => {
   dispatch({ type: "loading", payload: true });
@@ -16,21 +17,6 @@ export const fetchData = async (cartListProduct, dispatch) => {
   }
 };
 
-// export const fetchbrainTree = async (getBrainTreeToken, setState) => {
-//   try {
-//     let responseData = await getBrainTreeToken();
-//     if (responseData && responseData) {
-//       setState({
-//         clientToken: responseData.clientToken,
-//         success: responseData.success,
-//       });
-//       console.log(responseData);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 export const pay = async (
   data,
   dispatch,
@@ -45,20 +31,23 @@ export const pay = async (
   } else if (!state.phone) {
     setState({ ...state, error: "Please provide your phone number" });
   } else {
+    let uId = JSON.parse(localStorage.getItem("jwt")).user._id;
+    let userData = await getUserDtails(uId);
+    console.log(userData);
     try {
       const paymentData = {
-        name: "User Name", // Replace with user's name
-        email: "user@example.com", // Replace with user's email
-        amount: totalCost() * 100, // Total amount in paise
+        name: userData.User.name,
+        email: userData.User.email,
+        amount: totalCost() * 100,
       };
-
+      console.log(paymentData);
       const razorpayResponse = await getPaymentProcess(paymentData);
 
       const options = {
         key: "rzp_test_gmvFSAhhLN8Hh7", // Replace with your Razorpay API key
         currency: "INR",
         amount: razorpayResponse.amount,
-        name: "MDM HERBAL PRODUCTS",
+        name: userData.User.name,
         description: "Thanks For Purchasing",
         order_id: razorpayResponse.productDetails.id,
         handler: (response) => {
@@ -67,11 +56,11 @@ export const pay = async (
           toast.success("payment is Succesfully completed");
         },
         prefill: {
-          name: "dhanunjay",
-          email: "dhanunjay@gmail.com",
+          name: userData.User.name,
+          email: userData.User.email,
         },
         theme: {
-          color: "#067e52", // Replace with your preferred color theme
+          color: "#067e52",
         },
       };
 

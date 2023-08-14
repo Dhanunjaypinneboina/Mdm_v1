@@ -34,8 +34,8 @@ const Navber = (props) => {
     <Fragment>
       {/* Navber Section */}
       <nav className="fixed top-0 w-full z-20 bg-white">
-        <div className="m-3 md:mx-12 md:my-6 grid grid-cols-4 lg:grid-cols-3">
-          <div className="hidden lg:block col-span-1 flex text-gray-600 mt-1">
+        <div className="flex items-center m-2 md:mx-12 md:my-6 grid grid-cols-4 lg:grid-cols-3">
+          <div className=" hidden lg:block col-span-1 flex text-gray-600 mt-1">
             <span
               className="hover:bg-gray-200 px-4 py-3 rounded-lg font-light tracking-widest hover:text-gray-800 cursor-pointer"
               onClick={(e) => history.push("/")}

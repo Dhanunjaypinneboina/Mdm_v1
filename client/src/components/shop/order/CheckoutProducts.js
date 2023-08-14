@@ -19,6 +19,7 @@ export const CheckoutComponent = (props) => {
   const [state, setState] = useState({
     address: "",
     phone: "",
+    postal: "",
     error: false,
     success: false,
     clientToken: null,
@@ -105,6 +106,24 @@ export const CheckoutComponent = (props) => {
                       id="address"
                       className="border px-4 py-2"
                       placeholder="Address..."
+                    />
+                  </div>
+                  <div className="flex flex-col py-2">
+                    <label htmlFor="address" className="pb-2">
+                      Postal code
+                    </label>
+                    <input
+                      onChange={(e) =>
+                        setState({
+                          ...state,
+                          postal: e.target.value,
+                          error: false,
+                        })
+                      }
+                      type="text"
+                      id="address"
+                      className="border px-4 py-2"
+                      placeholder="code..."
                     />
                   </div>
                   <div className="flex flex-col py-2 mb-2">
