@@ -9,12 +9,11 @@ import {
   ProductDetails,
   ProductByCategory,
   CheckoutPage,
-  
 } from "./shop";
-import {DashboardAdmin, Categories, Products, Orders} from "./admin";
-import {UserProfile, UserOrders, SettingUser} from "./shop/dashboardUser";
+import { DashboardAdmin, Categories, Products, Orders, Users } from "./admin";
+import { UserProfile, UserOrders, SettingUser } from "./shop/dashboardUser";
 
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 /* Routing All page will be here */
 const Routes = (props) => {
@@ -30,7 +29,7 @@ const Routes = (props) => {
           path="/products/category/:catId"
           component={ProductByCategory}
         />
-        
+
         <CartProtectedRoute
           exact={true}
           path="/checkout"
@@ -59,7 +58,12 @@ const Routes = (props) => {
           path="/admin/dashboard/orders"
           component={Orders}
         />
-       
+        <AdminProtectedRoute
+          exact={true}
+          path="/admin/dashboard/users"
+          component={Users}
+        />
+
         {/* Admin Routes End */}
 
         {/* User Dashboard */}

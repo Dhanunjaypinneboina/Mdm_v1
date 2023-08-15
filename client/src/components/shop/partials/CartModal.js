@@ -11,19 +11,19 @@ const apiURL = process.env.REACT_APP_API_URL;
 
 const CartModal = () => {
   const history = useHistory();
-  const [count, setCount] = useState(2);
+
   const { data, dispatch } = useContext(LayoutContext);
   const products = data.cartProduct;
   const cartModalOpen = () =>
     dispatch({ type: "cartModalToggle", payload: !data.cartModal });
 
   useEffect(() => {
-    fetchData();
+    fetchCartData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchData = async () => {
+  const fetchCartData = async () => {
     try {
       let responseData = await cartListProduct();
       if (responseData && responseData.Products) {
@@ -59,7 +59,7 @@ const CartModal = () => {
       console.log("Updated Cart Data:", cartData);
 
       // Fetch updated cart data and update state
-      fetchData();
+      fetchCartData();
     } else {
       console.log("Item not found in cart");
     }
@@ -72,13 +72,13 @@ const CartModal = () => {
     if (cart.length !== 0) {
       cart = cart.filter((item) => item.id !== id);
       localStorage.setItem("cart", JSON.stringify(cart));
-      fetchData();
+      fetchCartData();
       dispatch({ type: "inCart", payload: cartList() });
       dispatch({ type: "cartTotalCost", payload: totalCost() });
     }
     if (cart.length === 0) {
       dispatch({ type: "cartProduct", payload: null });
-      fetchData();
+      fetchCartData();
       dispatch({ type: "inCart", payload: cartList() });
     }
   };

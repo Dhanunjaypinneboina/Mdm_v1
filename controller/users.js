@@ -4,11 +4,9 @@ import bcrypt from "bcryptjs";
 class User {
   async getAllUser(req, res) {
     try {
-      let Users = await userModel
-        .find({})
-        .populate("allProduct.id", "pName pImages pPrice")
-        .populate("user", "name email")
-        .sort({ _id: -1 });
+      let Users = await userModel.find({}).populate("user", "name email");
+
+      console.log(Users);
       if (Users) {
         return res.json({ Users });
       }
@@ -126,18 +124,6 @@ class User {
           });
         }
       }
-    }
-  }
-
-  async getUserByNameAndEmail(req, res) {
-    const { userId } = req.body;
-    console.log(userId);
-    try {
-      const user = await userModel.findById(userId);
-      return user;
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      throw error;
     }
   }
 }

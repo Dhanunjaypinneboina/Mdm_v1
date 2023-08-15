@@ -133,8 +133,8 @@ const ProductDetailsSection = (props) => {
                 slideImage("increase", 0, count, setCount, pImages)
               }
               className={`${
-                count === 0 ? "" : "opacity-25"
-              }  border border-dark cursor-pointer w-15 h-15 object-cover object-center`}
+                count === 0 ? "" : "opacity-20"
+              }  border border-dark cursor-pointer  w-15 h-15 object-cover object-center`}
               src={`${apiURL}/uploads/products/${sProduct.pImages[0]}`}
               alt="pic"
             />
@@ -143,8 +143,8 @@ const ProductDetailsSection = (props) => {
                 slideImage("increase", 1, count, setCount, pImages)
               }
               className={`${
-                count === 1 ? "" : "opacity-25"
-              } border border-dark cursor-pointer w-15 h-15 object-cover object-center`}
+                count === 1 ? "" : "opacity-20"
+              } border border-dark cursor-pointer  w-15 h-15 object-cover object-center`}
               src={`${apiURL}/uploads/products/${sProduct.pImages[1]}`}
               alt="pic"
             />
@@ -153,7 +153,7 @@ const ProductDetailsSection = (props) => {
                 slideImage("increase", 2, count, setCount, pImages)
               }
               className={`${
-                count === 2 ? "" : "opacity-25"
+                count === 2 ? "" : "opacity-20"
               } border border-dark cursor-pointer w-15 h-15 object-cover object-center`}
               src={`${apiURL}/uploads/products/${sProduct.pImages[2]}`}
               alt="pic"
@@ -163,7 +163,7 @@ const ProductDetailsSection = (props) => {
                 slideImage("increase", 3, count, setCount, pImages)
               }
               className={`${
-                count === 3 ? "" : "opacity-25"
+                count === 3 ? "" : "opacity-20"
               } border border-dark cursor-pointer w-15 h-15 object-cover object-center`}
               src={`${apiURL}/uploads/products/${sProduct.pImages[3]}`}
               alt="pic"

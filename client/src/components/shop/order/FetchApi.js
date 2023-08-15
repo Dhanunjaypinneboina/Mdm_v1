@@ -44,7 +44,6 @@ export const getPaymentProcess = async (paymentData) => {
       return;
     }
 
-    console.log(paymentData);
     const res = await axios.post(`${apiURL}/api/razorpay/payment`, paymentData);
     const { data } = res;
     return data;

@@ -52,7 +52,7 @@ export const pay = async (
         order_id: razorpayResponse.productDetails.id,
         handler: (response) => {
           // Handle the payment success callback
-          //alert("Payment Successful!");
+          alert("Payment Successful!");
           toast.success("payment is Succesfully completed");
         },
         prefill: {
@@ -88,7 +88,6 @@ export const pay = async (
           dispatch({ type: "orderSuccess", payload: true });
           setState({ clientToken: "", instance: {} });
           dispatch({ type: "loading", payload: false });
-          // return history.push("/");
         } else if (resposeData.error) {
           console.log(resposeData.error);
         }
@@ -98,3 +97,5 @@ export const pay = async (
     }
   }
 };
+
+// return history.push("/");

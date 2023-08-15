@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      index: {unique: true},
+      index: { unique: true },
       match: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
     },
     password: {
@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema(
       default: [],
     },
   },
-  {timestamps: true}
+  { timestamps: true }
 );
 
 const userModel = mongoose.model("users", userSchema);
