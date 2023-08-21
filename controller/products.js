@@ -42,6 +42,24 @@ class Product {
     }
   }
 
+  // async getAllPremiumProducts(req, res) {
+  //   try {
+  //     let PremiumProducts = await productModel
+  //       .find({ pCategory: "premium" }) // Replace "pCategory" with the actual field name for categories
+  //       .populate("pCategory", "_id cName")
+  //       .sort({ _id: -1 });
+
+  //     if (PremiumProducts) {
+  //       return res.json({ PremiumProducts });
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //     return res
+  //       .status(500)
+  //       .json({ error: "An error occurred while fetching premium products." });
+  //   }
+  // }
+
   async postAddProduct(req, res) {
     let { pName, pDescription, pPrice, pQuantity, pCategory, pOffer, pStatus } =
       req.body;

@@ -1,13 +1,13 @@
-import React, {Fragment, useContext, useEffect} from "react";
-import {getAllCategory, deleteCategory} from "./FetchApi";
-import {CategoryContext} from "./index";
+import React, { Fragment, useContext, useEffect } from "react";
+import { getAllCategory, deleteCategory } from "./FetchApi";
+import { CategoryContext } from "./index";
 import moment from "moment";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
 const AllCategory = (props) => {
-  const {data, dispatch} = useContext(CategoryContext);
-  const {categories, loading} = data;
+  const { data, dispatch } = useContext(CategoryContext);
+  const { categories, loading } = data;
 
   useEffect(() => {
     fetchData();
@@ -15,7 +15,7 @@ const AllCategory = (props) => {
   }, []);
 
   const fetchData = async () => {
-    dispatch({type: "loading", payload: true});
+    dispatch({ type: "loading", payload: true });
     let responseData = await getAllCategory();
     setTimeout(() => {
       if (responseData && responseData.Categories) {
@@ -23,7 +23,7 @@ const AllCategory = (props) => {
           type: "fetchCategoryAndChangeState",
           payload: responseData.Categories,
         });
-        dispatch({type: "loading", payload: false});
+        dispatch({ type: "loading", payload: false });
       }
     }, 1000);
   };
@@ -54,16 +54,18 @@ const AllCategory = (props) => {
     return (
       <div className="flex items-center justify-center p-8">
         <svg
-          class="w-12 h-12 animate-spin text-gray-600"
+          className="w-12 h-12 animate-spin text-gray-600"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg">
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          ></path>
         </svg>
       </div>
     );
@@ -102,7 +104,8 @@ const AllCategory = (props) => {
               <tr>
                 <td
                   colSpan="7"
-                  className="text-xl text-center font-semibold py-8">
+                  className="text-xl text-center font-semibold py-8"
+                >
                   No category found
                 </td>
               </tr>
@@ -118,7 +121,7 @@ const AllCategory = (props) => {
 };
 
 /* Single Category Component */
-const CategoryTable = ({category, deleteCat, editCat}) => {
+const CategoryTable = ({ category, deleteCat, editCat }) => {
   return (
     <Fragment>
       <tr>
@@ -166,12 +169,14 @@ const CategoryTable = ({category, deleteCat, editCat}) => {
                 category.cStatus
               )
             }
-            className="cursor-pointer hover:bg-gray-200 rounded-lg p-2 mx-1">
+            className="cursor-pointer hover:bg-gray-200 rounded-lg p-2 mx-1"
+          >
             <svg
               className="w-6 h-6 fill-current text-green-500"
               fill="currentColor"
               viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
               <path
                 fillRule="evenodd"
@@ -182,12 +187,14 @@ const CategoryTable = ({category, deleteCat, editCat}) => {
           </span>
           <span
             onClick={(e) => deleteCat(category._id)}
-            className="cursor-pointer hover:bg-gray-200 rounded-lg p-2 mx-1">
+            className="cursor-pointer hover:bg-gray-200 rounded-lg p-2 mx-1"
+          >
             <svg
               className="w-6 h-6 fill-current text-red-500"
               fill="currentColor"
               viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 fillRule="evenodd"
                 d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"

@@ -17,7 +17,7 @@ const Slider = (props) => {
   // console.log(data.sliderImages.map((each, index) => index));
   return (
     <Fragment>
-      <div className="relative mt-20 bg-gray-100 border-2">
+      <div className="relative mt-20 bg-gray-100 border-1">
         {data.sliderImages.length > 0 ? (
           <Carousel data-bs-theme="dark" style={{ height: "100%" }}>
             {data.sliderImages.map((each, index) => (

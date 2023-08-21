@@ -44,7 +44,7 @@ const CategoryList = () => {
                   <img
                     src={`${apiURL}/uploads/categories/${item.cImage}`}
                     alt="pic"
-                    class="h-20"
+                    className="h-24"
                   />
                   <div className="font-medium mt-0">{item.cName}</div>
                 </div>

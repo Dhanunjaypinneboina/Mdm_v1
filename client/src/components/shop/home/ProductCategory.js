@@ -19,7 +19,7 @@ const ProductCategory = (props) => {
             data.categoryListDropdown ? "text-yellow-700" : ""
           }`}
         >
-          <span className="text-md md:text-lg hover:text-yellow-700">
+          <span className="text-md md:text-lg hover:text-yellow-700 font-bold">
             Categories
           </span>
           <svg
@@ -49,7 +49,7 @@ const ProductCategory = (props) => {
               data.filterListDropdown ? "text-yellow-700" : ""
             }`}
           >
-            <span className="text-md md:text-lg">Filter</span>
+            <span className="text-md md:text-lg font-bold">Filter</span>
             <span>
               <svg
                 className="w-4 h-4 text-gray-700 text-yellow-700"
@@ -67,7 +67,7 @@ const ProductCategory = (props) => {
               </svg>
             </span>
           </div>
-          <span>/</span>
+          <span className="font-bold">/</span>
           <div
             onClick={(e) =>
               dispatch({
@@ -79,7 +79,7 @@ const ProductCategory = (props) => {
               data.searchDropdown ? "text-yellow-700" : ""
             }`}
           >
-            <span className="text-md md:text-lg">Search</span>
+            <span className="text-md md:text-lg font-bold">Search</span>
             <span>
               <svg
                 className="w-4 h-4 text-gray-700 text-yellow-700"

@@ -1,14 +1,14 @@
-import React, {Fragment, useContext, useEffect} from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import moment from "moment";
 
-import {OrderContext} from "./index";
-import {fetchData, editOrderReq, deleteOrderReq} from "./Actions";
+import { OrderContext } from "./index";
+import { fetchData, editOrderReq, deleteOrderReq } from "./Actions";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
 const AllCategory = (props) => {
-  const {data, dispatch} = useContext(OrderContext);
-  const {orders, loading} = data;
+  const { data, dispatch } = useContext(OrderContext);
+  const { orders, loading } = data;
 
   useEffect(() => {
     fetchData(dispatch);
@@ -23,12 +23,14 @@ const AllCategory = (props) => {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg">
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
-            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          ></path>
         </svg>
       </div>
     );
@@ -69,7 +71,8 @@ const AllCategory = (props) => {
               <tr>
                 <td
                   colSpan="12"
-                  className="text-xl text-center font-semibold py-8">
+                  className="text-xl text-center font-semibold py-8"
+                >
                   No order found
                 </td>
               </tr>
@@ -85,8 +88,8 @@ const AllCategory = (props) => {
 };
 
 /* Single Category Component */
-const CategoryTable = ({order, editOrder}) => {
-  const {dispatch} = useContext(OrderContext);
+const CategoryTable = ({ order, editOrder }) => {
+  const { dispatch } = useContext(OrderContext);
 
   return (
     <Fragment>
@@ -154,12 +157,14 @@ const CategoryTable = ({order, editOrder}) => {
         <td className="p-2 flex items-center justify-center">
           <span
             onClick={(e) => editOrder(order._id, true, order.status)}
-            className="cursor-pointer hover:bg-gray-200 rounded-lg p-2 mx-1">
+            className="cursor-pointer hover:bg-gray-200 rounded-lg p-2 mx-1"
+          >
             <svg
               className="w-6 h-6 fill-current text-green-500"
               fill="currentColor"
               viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
               <path
                 fillRule="evenodd"
@@ -170,13 +175,15 @@ const CategoryTable = ({order, editOrder}) => {
           </span>
           <span
             onClick={(e) => deleteOrderReq(order._id, dispatch)}
-            className="cursor-pointer hover:bg-gray-200 rounded-lg p-2 mx-1">
+            className="cursor-pointer hover:bg-gray-200 rounded-lg p-2 mx-1"
+          >
             <svg
               className="w-6 h-6 text-red-500"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

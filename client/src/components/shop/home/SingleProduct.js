@@ -71,13 +71,13 @@ const SingleProduct = (props) => {
                   alt=""
                 />
                 <div className="flex items-center justify-between mt-2">
-                  <div className="text-gray-600 font-light truncate">
+                  <div className="text-gray-700 font-bold font-light truncate">
                     {item.pName}
                   </div>
                   <div className="flex items-center space-x-1">
                     <span>
                       <svg
-                        className="w-4 h-4 fill-current text-yellow-700"
+                        className="w-5 h-5 fill-current text-yellow-700"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -91,22 +91,22 @@ const SingleProduct = (props) => {
                         />
                       </svg>
                     </span>
-                    <span className="text-gray-700">
+                    <span className="text-gray-700 font-bold">
                       {item.pRatingsReviews.length}
                     </span>
                   </div>
                 </div>
-                <div>₹{item.pPrice}.00</div>
+                <div className="font-bold ">₹{item.pPrice}.00</div>
                 {/* WhisList Logic  */}
                 <div className="absolute top-0 right-0 mx-2 my-2 md:mx-4">
                   <svg
                     onClick={(e) => isWishReq(e, item._id, setWlist)}
                     className={`${
                       isWish(item._id, wList) && "hidden"
-                    } w-5 h-5 md:w-6 md:h-6 cursor-pointer text-yellow-700 transition-all duration-300 ease-in`}
+                    } w-8 h-8 md:w-6 md:h-6 cursor-pointer text-yellow-700 transition-all duration-300 ease-in`}
                     fill="none"
                     stroke="currentColor"
-                    viewBox="0 0 24 24"
+                    viewBox="0 0 26 26"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path

@@ -35,6 +35,11 @@ export const homeReducer = (state, action) => {
         ...state,
         products: action.payload,
       };
+    case "setPremium":
+      return {
+        ...state,
+        premiumProducts: action.payload,
+      };
     case "searchHandleInReducer":
       return {
         ...state,

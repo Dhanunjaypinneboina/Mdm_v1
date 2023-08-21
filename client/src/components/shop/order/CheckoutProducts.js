@@ -199,7 +199,7 @@ const CheckoutProducts = ({ products }) => {
             return (
               <div
                 key={index}
-                className="col-span-1 m-2 md:py-6 md:border-t md:border-b md:my-2 md:mx-0 md:flex md:items-center md:justify-between"
+                className="col-span-1 m-2 md:border-t md:border-b md:my-2 md:mx-0 md:flex md:items-center md:justify-between"
               >
                 <div className="border border-dark p-2 md:flex md:items-center md:space-x-4">
                   <img

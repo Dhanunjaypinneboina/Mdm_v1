@@ -217,9 +217,11 @@ const ProductDetailsSection = (props) => {
 
           <div className="col-span-2 mt-8 md:mt-0 md:col-span-4 md:ml-6 lg:ml-12">
             <div className="flex flex-col leading-8">
-              <div className="text-2xl tracking-wider">{sProduct.pName}</div>
+              <div className="text-2xl tracking-wider font-bold">
+                {sProduct.pName}
+              </div>
               <div className="flex justify-between items-center">
-                <span className="text-xl tracking-wider text-yellow-700">
+                <span className="text-xl tracking-wider text-yellow-700 ">
                   ₹{sProduct.pPrice}.00
                 </span>
                 <span>
@@ -259,7 +261,7 @@ const ProductDetailsSection = (props) => {
               </div>
             </div>
 
-            <div className="my-2 md:my-6 text-gray-600">
+            <div className="my-2 md:my-6 text-gray-600 font-bold">
               <div
                 dangerouslySetInnerHTML={{ __html: sProduct.pDescription }}
                 style={{ marginLeft: "-1rem", marginTop: "1rem" }}

@@ -1,13 +1,16 @@
 import React, { Fragment, useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { BsCart4 } from "react-icons/bs";
-import { Badge } from "antd";
-import { FaBars } from "react-icons/fa";
-import "./style.css";
+// import { BsCart4 } from "react-icons/bs";
 
+import "./style.css";
+import logo from "../../../images/mdmLogo.png";
 import { logout } from "./Action";
 import { LayoutContext } from "../index";
 import { isAdmin } from "../auth/fetchApi";
+import { FcShop } from "react-icons/fc";
+import { Badge } from "antd";
+import { FaCartArrowDown } from "react-icons/fa";
+import { BiLogIn } from "react-icons/bi";
 
 const Navber = (props) => {
   const history = useHistory();
@@ -15,10 +18,10 @@ const Navber = (props) => {
 
   const { data, dispatch } = useContext(LayoutContext);
 
-  const navberToggleOpen = () =>
-    data.navberHamburger
-      ? dispatch({ type: "hamburgerToggle", payload: false })
-      : dispatch({ type: "hamburgerToggle", payload: true });
+  // const navberToggleOpen = () =>
+  //   data.navberHamburger
+  //     ? dispatch({ type: "hamburgerToggle", payload: false })
+  //     : dispatch({ type: "hamburgerToggle", payload: true });
 
   const loginModalOpen = () =>
     data.loginSignupModal
@@ -35,8 +38,8 @@ const Navber = (props) => {
       {/* Navber Section */}
       <nav className="fixed top-0 w-full z-20 bg-white">
         <div className="flex items-center m-2 md:mx-12 md:my-6 grid grid-cols-4 lg:grid-cols-3">
-          <div className=" hidden lg:block col-span-1 flex text-gray-600 mt-1">
-            <span
+          <div className="hidden lg:block col-span-1 flex text-gray-600 mt-1">
+            {/* <span
               className="hover:bg-gray-200 px-4 py-3 rounded-lg font-light tracking-widest hover:text-gray-800 cursor-pointer"
               onClick={(e) => history.push("/")}
             >
@@ -53,36 +56,51 @@ const Navber = (props) => {
               onClick={(e) => history.push("/contact-us")}
             >
               Contact us
-            </span>
+            </span> */}
+            <img src={logo} alt="logo" style={{ height: "60px" }} />
           </div>
           <div className="col-span-2 lg:hidden flex justify-items-stretch	 items-center">
-            <FaBars
+            {/* <FaBars
               className="col-span-1 lg:hidden w-6 h-6 cursor-pointer text-gray-600"
               onClick={(e) => navberToggleOpen()}
-            />
-            <span
+            /> */}
+            {/* <span
               onClick={(e) => history.push("/")}
-              style={{ letterSpacing: "0.10rem" }}
               className="flex items-left text-center font-bold uppercase text-gray-800 text-2xl cursor-pointer px-2 text-center"
             >
-              MDM
-            </span>
+             
+            </span> */}
+            <img src={logo} alt="logo" style={{ height: "40px" }} />
           </div>
-          <div
+          {/* <div
             onClick={(e) => history.push("/")}
-            style={{ letterSpacing: "0.70rem" }}
             className="hidden lg:block flex items-left col-span-1 text-center text-gray-800 font-bold tracking-widest uppercase text-2xl cursor-pointer"
           >
-            MDM
+            MDM HERBAL PRODUCTS
+          </div> */}
+          <div
+            onClick={(e) => history.push("/")}
+            className="hidden lg:block flex items-left col-span-1 text-center font-bold tracking-widest uppercase text-2xl cursor-pointer"
+            style={{
+              background: "#B56BED",
+              backgroundImage:
+                "linear-gradient(45deg, #0cba55 48%, #232c41 16%, #496c60 8%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              color: "#5ce407",
+            }}
+          >
+            MDM HERBAL PRODUCTS
           </div>
+
           <div className="flex items-right col-span-2 lg:col-span-1 flex justify-end">
-            {/*  WishList Page Button */}
+            {/*  Home Page Button */}
             <div
-              onClick={(e) => history.push("/wish-list")}
+              onClick={(e) => history.push("/")}
               className="hover:bg-gray-200 rounded-lg px-2 py-2 cursor-pointer"
               title="Wishlist"
             >
-              <svg
+              {/* <svg
                 className={`${
                   location.pathname === "/wish-list"
                     ? "fill-current text-gray-800"
@@ -99,16 +117,48 @@ const Navber = (props) => {
                   strokeWidth={2}
                   d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                 />
+              </svg> */}
+              <FcShop
+                className={`${
+                  location.pathname === "/" ? "fill-current text-gray-800" : ""
+                } w-8 h-8 text-gray-600 cursor-pointer`}
+              />
+            </div>
+
+            {/*  WishList Page Button */}
+            <div
+              onClick={(e) => history.push("/wish-list")}
+              className="hover:bg-gray-200 rounded-lg px-2 py-2 cursor-pointer"
+              title="Wishlist"
+            >
+              <svg
+                className={`${
+                  location.pathname === "/wish-list"
+                    ? "fill-current text-red-600"
+                    : "fill-current text-gray-800"
+                } w-8 h-8 cursor-pointer`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
               </svg>
             </div>
+
             {localStorage.getItem("jwt") ? (
               <Fragment>
                 <div
-                  className="userDropdownBtn hover:bg-gray-200 px-2 py-2 rounded-lg relative"
+                  className="userDropdownBtn hover:bg-gray-300 px-2 py-2 rounded-lg relative"
                   title="Logout"
                 >
                   <svg
-                    className="cursor-pointer w-8 h-8 text-gray-600 hover:text-gray-800"
+                    className="cursor-pointer w-8 h-8 text-gray-800 hover:text-gray-800"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -124,7 +174,7 @@ const Navber = (props) => {
                   <div className="userDropdown absolute right-0 mt-1 bg-gray-200 rounded">
                     {!isAdmin() ? (
                       <Fragment>
-                        <li className="flex flex-col text-gray-700 w-48 shadow-lg">
+                        <li className="flex flex-col text-gray-800 w-48 shadow-lg">
                           <span
                             onClick={(e) => history.push("/user/orders")}
                             className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer"
@@ -309,8 +359,8 @@ const Navber = (props) => {
                 className="cursor-pointer hover:bg-gray-200 px-2 py-2 rounded-lg"
                 title="Login"
               >
-                <svg
-                  className="w-8 h-8 text-gray-600 hover:text-gray-800"
+                {/* <svg
+                  className="w-10 h-10 text-gray-800 hover:text-gray-800"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -322,7 +372,15 @@ const Navber = (props) => {
                     strokeWidth={2}
                     d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
                   />
-                </svg>
+                </svg> */}
+                {/* <BiLogIn className="w-10 h-10 text-gray-800 hover:text-gray-800" /> */}
+                <BiLogIn className="w-10 h-10 text-gray-800 hover:text-gray-800" />
+
+                {/* <img
+                  src={enter}
+                  alt="login"
+                  className="w-8 h-8 text-gray-800 hover:text-gray-800"
+                /> */}
               </div>
             )}
             {/* Cart Modal Button */}
@@ -335,13 +393,17 @@ const Navber = (props) => {
                 count={data.cartProduct !== null ? data.cartProduct.length : 0}
                 showZero
                 offset={[5, -2]}
+                style={{ backgroundColor: "green", color: "white" }}
               >
-                <BsCart4 className="w-8 h-8 text-gray-600 hover:text-gray-800" />
+                <FaCartArrowDown
+                  className="w-8 h-8  hover:text-gray-800"
+                  style={{ color: "#140c08" }}
+                />
               </Badge>
             </div>
           </div>
         </div>
-        <div
+        {/* <div
           className={
             data.navberHamburger && data.navberHamburger
               ? "px-1 pb-2 md:pb-0 md:px-10 lg:hidden"
@@ -368,7 +430,7 @@ const Navber = (props) => {
               Contact us
             </span>
           </div>
-        </div>
+        </div> */}
       </nav>
       {/* End Navber Section */}
     </Fragment>
