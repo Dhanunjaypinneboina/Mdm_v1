@@ -1,11 +1,10 @@
 import React, { Fragment, useState, useContext } from "react";
 import { loginReq } from "./fetchApi";
 import { LayoutContext } from "../index";
-
+import mdmLogo from "../../../images/mdmLogo.png";
 const Login = (props) => {
-  const { data: layoutData, dispatch: layoutDispatch } = useContext(
-    LayoutContext
-  );
+  const { data: layoutData, dispatch: layoutDispatch } =
+    useContext(LayoutContext);
 
   const [data, setData] = useState({
     email: "",
@@ -42,7 +41,11 @@ const Login = (props) => {
 
   return (
     <Fragment>
-      <div className="text-center text-2xl mb-6">Login</div>
+      <div className="flex justify-center text-2xl mb-6">
+        {" "}
+        <img src={mdmLogo} alt="logo" style={{ height: "70px" }} />
+      </div>
+
       {layoutData.loginSignupError ? (
         <div className="bg-red-200 py-2 px-4 rounded">
           You need to login for checkout. Haven't accont? Create new one.

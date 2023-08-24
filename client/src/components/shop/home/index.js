@@ -5,6 +5,7 @@ import ProductCategory from "./ProductCategory";
 import { homeState, homeReducer } from "./HomeContext";
 import SingleProduct from "./SingleProduct";
 import PremiumProducts from "./PremiumProducts";
+import ShampooAndOils from "./Shampoos&oils";
 
 export const HomeContext = createContext();
 
@@ -21,9 +22,18 @@ const HomeComponent = () => {
         <SingleProduct />
       </section>
       {/* Premium Products */}
-      {/* <section className="m-4 md:mx-8 md:my-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <section className="m-4 md:mx-8 md:my-6">
+        <h3>Premium Products</h3>
+      </section>
+      <section className="m-4 md:mx-8 md:my-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <PremiumProducts />
-      </section> */}
+      </section>
+      <section className="m-4 md:mx-8 md:my-6">
+        <h3>Shampoos and Oils</h3>
+      </section>
+      <section className="m-4 md:mx-8 md:my-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <ShampooAndOils />
+      </section>
     </Fragment>
   );
 };

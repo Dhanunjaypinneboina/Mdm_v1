@@ -33,14 +33,14 @@ export const pay = async (
   } else {
     let uId = JSON.parse(localStorage.getItem("jwt")).user._id;
     let userData = await getUserDtails(uId);
-    console.log(userData);
+
     try {
       const paymentData = {
         name: userData.User.name,
         email: userData.User.email,
         amount: totalCost() * 100,
       };
-      console.log(paymentData);
+
       const razorpayResponse = await getPaymentProcess(paymentData);
 
       const options = {

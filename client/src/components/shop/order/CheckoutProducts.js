@@ -6,7 +6,7 @@ import { subTotal, quantity, totalCost } from "../partials/Mixins";
 import { cartListProduct } from "../partials/FetchApi";
 import { getPaymentProcess } from "./FetchApi";
 // import {getBrainTreeToken, getPaymentProcess} from "./FetchApi";
-import { fetchData, fetchbrainTree, pay } from "./Action";
+import { fetchData, pay } from "./Action";
 
 // import DropIn from "braintree-web-drop-in-react";
 
@@ -29,19 +29,8 @@ export const CheckoutComponent = (props) => {
   useEffect(() => {
     fetchData(cartListProduct, dispatch);
 
-    // fetchbrainTree(getBrainTreeToken, setState);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // useEffect(() => {
-  //   fetchData(cartListProduct, dispatch);
-  //   const cleanup = fetchbrainTree(getBrainTreeToken, setState);
-
-  //   return () => {
-  //     cleanup(); // Call the cleanup function to cancel the async task
-  //   };
-  // }, []);
 
   if (data.loading) {
     return (
@@ -64,8 +53,6 @@ export const CheckoutComponent = (props) => {
       </div>
     );
   }
-
-  console.log(state);
 
   return (
     <Fragment>

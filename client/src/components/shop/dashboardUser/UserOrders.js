@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useContext } from "react";
 import moment from "moment";
 import { fetchOrderByUser } from "./Action";
 import Layout, { DashboardUserContext } from "./Layout";
-
+import { Button, Modal } from "antd";
 const apiURL = process.env.REACT_APP_API_URL;
 
 const TableHeader = () => {
@@ -72,7 +72,7 @@ const TableBody = ({ order }) => {
             </span>
           )}
         </td>
-        <td className="hover:bg-gray-200 p-2 text-center font-bold">
+        {/* <td className="hover:bg-gray-200 p-2 text-center font-bold">
           ₹{order.amount}.00
         </td>
         <td className="hover:bg-gray-200 p-2 text-center font-bold">
@@ -89,7 +89,7 @@ const TableBody = ({ order }) => {
         </td>
         <td className="hover:bg-gray-200 p-2 text-center font-bold">
           {moment(order.updatedAt).format("lll")}
-        </td>
+        </td> */}
       </tr>
     </Fragment>
   );

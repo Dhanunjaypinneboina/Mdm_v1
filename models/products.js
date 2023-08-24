@@ -50,7 +50,13 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    size: {
+      type: String,
+      default: "100g",
+      enum: ["100g", "30g", "20g", "15g"],
+    },
   },
+
   { timestamps: true }
 );
 

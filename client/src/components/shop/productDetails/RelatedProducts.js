@@ -83,12 +83,13 @@ const RelatedProducts = () => {
                 </div>
                 <div className="font-bold">₹{item.pPrice}.00</div>
                 {/* WhisList Logic  */}
-                <div className="absolute top-0 right-0 mx-2 my-2 md:mx-4">
+                <div className="absolute top-0 right-0 mx-0 my-0 md:mx-5">
                   <svg
                     onClick={(e) => isWishReq(e, item._id, setWlist)}
                     className={`${
                       isWish(item._id, wList) && "hidden"
-                    } w-5 h-5 md:w-6 md:h-6 cursor-pointer text-yellow-700 transition-all duration-300 ease-in`}
+                    } w-8 h-8 md:w-8 md:h-8 cursor-pointer text-yellow-600
+                     transition-all duration-300 ease-in`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -105,9 +106,9 @@ const RelatedProducts = () => {
                     onClick={(e) => unWishReq(e, item._id, setWlist)}
                     className={`${
                       !isWish(item._id, wList) && "hidden"
-                    } w-5 h-5 md:w-6 md:h-6 cursor-pointer text-yellow-700 transition-all duration-300 ease-in`}
+                    } w-10 h-10 md:w-6 md:h-6 cursor-pointer text-yellow-700 transition-all duration-300 ease-in`}
                     fill="currentColor"
-                    viewBox="0 0 20 20"
+                    viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path

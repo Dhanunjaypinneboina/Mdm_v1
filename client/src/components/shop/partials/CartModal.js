@@ -216,6 +216,7 @@ const CartModal = () => {
             >
               Continue shopping
             </div>
+
             {data.cartTotalCost ? (
               <Fragment>
                 {isAuthenticate() ? (

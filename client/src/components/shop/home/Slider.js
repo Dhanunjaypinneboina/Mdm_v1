@@ -19,7 +19,11 @@ const Slider = (props) => {
     <Fragment>
       <div className="relative mt-20 bg-gray-100 border-1">
         {data.sliderImages.length > 0 ? (
-          <Carousel data-bs-theme="dark" style={{ height: "100%" }}>
+          <Carousel
+            data-bs-theme="dark"
+            style={{ height: "100%" }}
+            indicators={false}
+          >
             {data.sliderImages.map((each, index) => (
               <Carousel.Item key={index}>
                 <img

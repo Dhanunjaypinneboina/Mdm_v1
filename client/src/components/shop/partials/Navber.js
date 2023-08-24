@@ -57,7 +57,12 @@ const Navber = (props) => {
             >
               Contact us
             </span> */}
-            <img src={logo} alt="logo" style={{ height: "60px" }} />
+            <img
+              src={logo}
+              alt="logo"
+              style={{ height: "70px" }}
+              className="object - cover"
+            />
           </div>
           <div className="col-span-2 lg:hidden flex justify-items-stretch	 items-center">
             {/* <FaBars
@@ -70,7 +75,12 @@ const Navber = (props) => {
             >
              
             </span> */}
-            <img src={logo} alt="logo" style={{ height: "40px" }} />
+            <img
+              src={logo}
+              alt="logo"
+              style={{ height: "40px" }}
+              onClick={(e) => history.push("/")}
+            />
           </div>
           {/* <div
             onClick={(e) => history.push("/")}
@@ -121,7 +131,7 @@ const Navber = (props) => {
               <FcShop
                 className={`${
                   location.pathname === "/" ? "fill-current text-gray-800" : ""
-                } w-8 h-8 text-gray-600 cursor-pointer`}
+                } w-10 h-10 text-gray-600 cursor-pointer`}
               />
             </div>
 
@@ -136,7 +146,7 @@ const Navber = (props) => {
                   location.pathname === "/wish-list"
                     ? "fill-current text-red-600"
                     : "fill-current text-gray-800"
-                } w-8 h-8 cursor-pointer`}
+                } w-10 h-10 cursor-pointer`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -158,7 +168,7 @@ const Navber = (props) => {
                   title="Logout"
                 >
                   <svg
-                    className="cursor-pointer w-8 h-8 text-gray-800 hover:text-gray-800"
+                    className="cursor-pointer w-10 h-10 text-gray-800 hover:text-gray-800"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -396,7 +406,7 @@ const Navber = (props) => {
                 style={{ backgroundColor: "green", color: "white" }}
               >
                 <FaCartArrowDown
-                  className="w-8 h-8  hover:text-gray-800"
+                  className="w-10 h-10  hover:text-gray-800"
                   style={{ color: "#140c08" }}
                 />
               </Badge>

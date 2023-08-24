@@ -7,7 +7,6 @@ const apiURL = process.env.REACT_APP_API_URL;
 
 const PremiumProducts = (props) => {
   const { data, dispatch } = useContext(HomeContext);
-
   const { premiumProducts } = data;
   const history = useHistory();
 
@@ -24,19 +23,17 @@ const PremiumProducts = (props) => {
   const fetchData = async () => {
     dispatch({ type: "loading", payload: true });
     try {
-      let responseData = await getAllProduct();
-      console.log(responseData.Products);
-      //   const pre = responseData.Products.map((each) =>
-      //     console.log(each.pCategory.cName === "Premium Products")
-      //   );
-      //   console.log("premium", pre);
-      const premiumProducts = responseData.products.filter(
-        (product) => product.pCategory.cName === "Premium Products"
-      );
+      const responseData = await getAllProduct();
 
-      console.log(premiumProducts);
+      let premiumProducts;
+      if (responseData && responseData.Products) {
+        premiumProducts = responseData.Products.filter(
+          (product) => product.pCategory.cName === "Premium Products"
+        );
+      }
+
       setTimeout(() => {
-        if (responseData && premiumProducts) {
+        if (premiumProducts) {
           dispatch({
             type: "setPremium",
             payload: premiumProducts,
@@ -116,7 +113,7 @@ const PremiumProducts = (props) => {
                     onClick={(e) => isWishReq(e, item._id, setWlist)}
                     className={`${
                       isWish(item._id, wList) && "hidden"
-                    } w-5 h-5 md:w-6 md:h-6 cursor-pointer text-yellow-700 transition-all duration-300 ease-in`}
+                    } w-8 h-8 md:w-6 md:h-6 cursor-pointer text-yellow-700 transition-all duration-300 ease-in`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -133,9 +130,9 @@ const PremiumProducts = (props) => {
                     onClick={(e) => unWishReq(e, item._id, setWlist)}
                     className={`${
                       !isWish(item._id, wList) && "hidden"
-                    } w-5 h-5 md:w-6 md:h-6 cursor-pointer text-yellow-700 transition-all duration-300 ease-in`}
+                    } w-10 h-10 md:w-6 md:h-6 cursor-pointer text-yellow-700 transition-all duration-300 ease-in`}
                     fill="currentColor"
-                    viewBox="0 0 20 20"
+                    viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path

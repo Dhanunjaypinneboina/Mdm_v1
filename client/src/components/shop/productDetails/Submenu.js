@@ -12,20 +12,20 @@ const Submenu = (props) => {
         <div className="flex justify-between items-center">
           <div className="flex justify-between items-center text-sm flex space-x-2 font-bold">
             <span
-              className="hover:text-yellow-1000 cursor-pointer strong"
+              className="hover:text-yellow-1000 cursor-pointer strong "
               onClick={(e) => history.push("/")}
             >
               Shop
             </span>
             <MdOutlineDoubleArrow />
             <span
-              className="hover:text-yellow-1000 cursor-pointer strong"
+              className="hover:text-yellow-1000 cursor-pointer strong truncate"
               onClick={(e) => history.push(`/products/category/${categoryId}`)}
             >
               {category}
             </span>
             <MdOutlineDoubleArrow />
-            <span className="text-yellow-800 cursor-default strong">
+            <span className="text-yellow-800 cursor-default strong truncate">
               {product}
             </span>
           </div>

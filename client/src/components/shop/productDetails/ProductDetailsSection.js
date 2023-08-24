@@ -15,14 +15,21 @@ import { totalCost } from "../partials/Mixins";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
+// let soaps = ["100g", "30g", "20g", "15g"];
+
 const ProductDetailsSection = (props) => {
   let { id } = useParams();
 
   const { data, dispatch } = useContext(ProductDetailsContext);
   const { data: layoutData, dispatch: layoutDispatch } =
-    useContext(LayoutContext); // Layout Context
+    useContext(LayoutContext);
 
   const sProduct = layoutData.singleProductDetail;
+  console.log(sProduct);
+  console.log(sProduct?.pOffer);
+
+  const calculatedPrice = 1 - sProduct?.pOffer / 100;
+
   const [pImages, setPimages] = useState(null);
   const [count, setCount] = useState(0); // Slide change state
 
@@ -216,20 +223,30 @@ const ProductDetailsSection = (props) => {
           </div>
 
           <div className="col-span-2 mt-8 md:mt-0 md:col-span-4 md:ml-6 lg:ml-12">
-            <div className="flex flex-col leading-8">
+            <div className="flex flex-col leading-8 ">
               <div className="text-2xl tracking-wider font-bold">
                 {sProduct.pName}
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-xl tracking-wider text-yellow-700 ">
-                  ₹{sProduct.pPrice}.00
-                </span>
+                <div>
+                  {sProduct.pOffer && (
+                    <span className="text-xl text-yellow-700 mr-5">
+                      ₹{(sProduct.pPrice * calculatedPrice).toFixed(0)}.00(
+                      <span clas> {sProduct.pOffer}% off)</span>
+                    </span>
+                  )}
+
+                  <span className="text-xl tracking-wider text-yellow-700">
+                    <del>₹{sProduct.pPrice}.00</del>
+                  </span>
+                </div>
+
                 <span>
                   <svg
                     onClick={(e) => isWishReq(e, sProduct._id, setWlist)}
                     className={`${
                       isWish(sProduct._id, wList) && "hidden"
-                    } w-5 h-5 md:w-6 md:h-6 cursor-pointer text-yellow-700`}
+                    } w-10 h-10 md:w-6 md:h-6 cursor-pointer text-yellow-700`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -246,9 +263,9 @@ const ProductDetailsSection = (props) => {
                     onClick={(e) => unWishReq(e, sProduct._id, setWlist)}
                     className={`${
                       !isWish(sProduct._id, wList) && "hidden"
-                    } w-5 h-5 md:w-6 md:h-6 cursor-pointer text-yellow-700`}
+                    } w-10 h-10 md:w-6 md:h-6 cursor-pointer text-yellow-700`}
                     fill="currentColor"
-                    viewBox="0 0 20 20"
+                    viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -293,6 +310,12 @@ const ProductDetailsSection = (props) => {
                     (layoutData.inCart !== null &&
                       layoutData.inCart.includes(sProduct._id) === false) ? (
                       <div className="flex items-center space-x-2">
+                        {/* <select>
+                          {soaps.map((item, i) => (
+                            <option key={i}>{item}</option>
+                          ))}
+                        </select> */}
+
                         <span
                           onClick={(e) =>
                             updateQuantity(
@@ -317,6 +340,7 @@ const ProductDetailsSection = (props) => {
                             />
                           </svg>
                         </span>
+
                         <span className="font-semibold">{quantitiy}</span>
                         <span
                           onClick={(e) =>

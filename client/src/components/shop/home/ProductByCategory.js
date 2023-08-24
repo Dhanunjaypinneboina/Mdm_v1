@@ -21,7 +21,7 @@ const Submenu = ({ category }) => {
               Shop
             </span>
             <MdOutlineDoubleArrow />
-            <span className="text-yellow-1000 cursor-default strong">
+            <span className="text-yellow-1000 cursor-default strong truncate">
               {category}
             </span>
           </div>

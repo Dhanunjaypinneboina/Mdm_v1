@@ -3,12 +3,14 @@ import { useHistory } from "react-router-dom";
 import { getAllProduct } from "../../admin/products/FetchApi";
 import { HomeContext } from "./index";
 import { isWishReq, unWishReq, isWish } from "./Mixins";
+import mdmLogo from "../../../images/mdmLogo.png";
 // import ReactTooltip from "react-tooltip";
 const apiURL = process.env.REACT_APP_API_URL;
 
 const SingleProduct = (props) => {
   const { data, dispatch } = useContext(HomeContext);
   const { products } = data;
+  console.log(products);
   const history = useHistory();
 
   /* WhisList State */
@@ -25,9 +27,15 @@ const SingleProduct = (props) => {
     dispatch({ type: "loading", payload: true });
     try {
       let responseData = await getAllProduct();
+      let Products;
+      if (responseData && responseData.Products) {
+        Products = responseData.Products.filter(
+          (product) => product.pCategory.cName !== "Premium Products"
+        );
+      }
       setTimeout(() => {
-        if (responseData && responseData.Products) {
-          dispatch({ type: "setProducts", payload: responseData.Products });
+        if (responseData && Products) {
+          dispatch({ type: "setProducts", payload: Products });
           dispatch({ type: "loading", payload: false });
         }
       }, 500);
@@ -68,7 +76,7 @@ const SingleProduct = (props) => {
                   onClick={(e) => history.push(`/products/${item._id}`)}
                   className="w-full object-cover object-center cursor-pointer"
                   src={`${apiURL}/uploads/products/${item.pImages[0]}`}
-                  alt=""
+                  alt={mdmLogo}
                 />
                 <div className="flex items-center justify-between mt-2">
                   <div className="text-gray-700 font-bold font-light truncate">
@@ -98,15 +106,16 @@ const SingleProduct = (props) => {
                 </div>
                 <div className="font-bold ">₹{item.pPrice}.00</div>
                 {/* WhisList Logic  */}
-                <div className="absolute top-0 right-0 mx-2 my-2 md:mx-4">
+                <div className="absolute top-0 right-0 mx-0 my-0 md:mx-5">
                   <svg
                     onClick={(e) => isWishReq(e, item._id, setWlist)}
                     className={`${
                       isWish(item._id, wList) && "hidden"
-                    } w-8 h-8 md:w-6 md:h-6 cursor-pointer text-yellow-700 transition-all duration-300 ease-in`}
+                    } w-6 h-6 md:w-8 md:h-8 cursor-pointer text-yellow-600
+                     transition-all duration-300 ease-in`}
                     fill="none"
                     stroke="currentColor"
-                    viewBox="0 0 26 26"
+                    viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -120,9 +129,9 @@ const SingleProduct = (props) => {
                     onClick={(e) => unWishReq(e, item._id, setWlist)}
                     className={`${
                       !isWish(item._id, wList) && "hidden"
-                    } w-5 h-5 md:w-6 md:h-6 cursor-pointer text-yellow-700 transition-all duration-300 ease-in`}
+                    } w-10 h-10 md:w-6 md:h-6 cursor-pointer text-red-700 transition-all duration-300 ease-in`}
                     fill="currentColor"
-                    viewBox="0 0 20 20"
+                    viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
