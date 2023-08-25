@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "description": "A E-commerce website.",
+  "description": "mdm E-commerce website.",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix ./client",
-    "dev": "concurrently \"npm run start\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "license": "MIT",
   "keywords": [],

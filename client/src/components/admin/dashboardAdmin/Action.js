@@ -4,12 +4,12 @@ import {
   getSliderImages,
   postDeleteImage,
 } from "./FetchApi";
-import {getAllOrder} from "../orders/FetchApi.js";
+import { getAllOrder } from "../orders/FetchApi.js";
 
 export const GetAllData = async (dispatch) => {
   let responseData = await DashboardData();
   if (responseData) {
-    dispatch({type: "totalData", payload: responseData});
+    dispatch({ type: "totalData", payload: responseData });
   }
 };
 
@@ -17,17 +17,16 @@ export const todayAllOrders = async (dispatch) => {
   let responseData = await getAllOrder();
 
   if (responseData) {
-    dispatch({type: "totalOrders", payload: responseData});
+    dispatch({ type: "totalOrders", payload: responseData });
   }
 };
 
 export const sliderImages = async (dispatch) => {
   try {
     let responseData = await getSliderImages();
-    console.log("responseData", responseData.Images);
-    console.log(responseData && responseData.Images);
+
     if (responseData && responseData.Images) {
-      dispatch({type: "sliderImages", payload: responseData.Images});
+      dispatch({ type: "sliderImages", payload: responseData.Images });
     }
   } catch (error) {
     console.log(error);
@@ -35,13 +34,13 @@ export const sliderImages = async (dispatch) => {
 };
 
 export const deleteImage = async (id, dispatch) => {
-  dispatch({type: "imageUpload", payload: true});
+  dispatch({ type: "imageUpload", payload: true });
   try {
     let responseData = await postDeleteImage(id);
     if (responseData && responseData.success) {
       setTimeout(function () {
         sliderImages(dispatch);
-        dispatch({type: "imageUpload", payload: false});
+        dispatch({ type: "imageUpload", payload: false });
       }, 1000);
     }
   } catch (error) {
@@ -50,7 +49,7 @@ export const deleteImage = async (id, dispatch) => {
 };
 
 export const uploadImage = async (image, dispatch) => {
-  dispatch({type: "imageUpload", payload: true});
+  dispatch({ type: "imageUpload", payload: true });
   let formData = new FormData();
   formData.append("image", image);
   console.log(formData.get("image"));
@@ -58,7 +57,7 @@ export const uploadImage = async (image, dispatch) => {
     let responseData = await postUploadImage(formData);
     if (responseData && responseData.success) {
       setTimeout(function () {
-        dispatch({type: "imageUpload", payload: false});
+        dispatch({ type: "imageUpload", payload: false });
         sliderImages(dispatch);
       }, 1000);
     }
