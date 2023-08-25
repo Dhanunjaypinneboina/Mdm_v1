@@ -32,7 +32,8 @@ import mongoose from "mongoose";
 import chalk from "chalk";
 
 const MANGO_URL = process.env.DATABASE;
-
+// const MANGO_URL =
+//   "mongodb+srv://mdmherbalproducts:sTIA6iImn1bYD7ZJ@cluster0.lwoezk9.mongodb.net/demo";
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(MANGO_URL, {
