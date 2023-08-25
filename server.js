@@ -82,7 +82,7 @@
 import express from "express";
 const app = express();
 import dotenv from "dotenv";
-import mongoose from "mongoose"; 
+import mongoose from "mongoose";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -100,7 +100,7 @@ import usersRouter from "./routes/users.js";
 import customizeRouter from "./routes/customize.js";
 
 // Import Auth middleware for check user login or not~
-import {loginCheck} from "./middleware/auth.js";
+import { loginCheck } from "./middleware/auth.js";
 import CreateAllFolder from "./config/uploadFolderCreateScript.js";
 
 /* Create All Uploads Folder if not exists | For Uploading Images */
