@@ -80,12 +80,13 @@
 // });
 
 import express from "express";
-const app = express();
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+
+const app = express();
 
 //config
 dotenv.config();
