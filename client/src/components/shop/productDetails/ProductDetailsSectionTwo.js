@@ -75,7 +75,7 @@ const ProductDetailsSectionTwo = (props) => {
   //   const cId = '64d5d3068999367f187a883b'
   //   const data = await axios.post("http://localhost:8080/api/product/related-products-by-category", { catId: cId })
   //   console.log(data)
-  // }
+  // }g
 
   return (
     <Fragment>
