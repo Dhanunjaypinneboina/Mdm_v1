@@ -127,7 +127,8 @@ app.use("/api/order", orderRouter);
 app.use("/api/customize", customizeRouter);
 
 app.get("/", (req, res) => {
-  res.send("Hello, World!"); // Replace with your desired response
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.send("Api is Running"); // Replace with your desired response
 });
 
 // Run Server
