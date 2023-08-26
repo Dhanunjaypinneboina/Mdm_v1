@@ -126,6 +126,10 @@ app.use("/api", brainTreeRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/customize", customizeRouter);
 
+app.get("/", (req, res) => {
+  res.send("Hello, World!"); // Replace with your desired response
+});
+
 // Run Server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
